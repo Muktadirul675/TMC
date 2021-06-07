@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock %}  
+
+{% block body %}
+
+    <div id="leadboard" class="container" >
+        <div class="row">
+            <h2>Leaderboard</h2> <hr>
+            <div class="col-12 p-3">
+                <table class="table table-striped table-bordered table-hover">
+                    <caption>Leaderboard</caption>
+                    <thead>
+                        <tr>
+                            <th>#Rank</th>
+                            <th>User</th>
+                            <th>Points</th>
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        {% for i in ranks %}
+                            <tr>
+                                <td>{{i.rank}}</td> 
+                                <td>{{i.name}}</td>
+                                <td>{{i.score}}</td>
+                            </tr>
+                        {% endfor %}         
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

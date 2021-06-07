@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+    <div id="add-problem" class="container p-1 mt-3 p-lg-5 p-xl-5">
+        <div class="row">
+                <h3>Add Problems</h3> <hr>
+            <div class="col-12 col-lg-8 col-xl-8">
+                <form class="form-group" method="POST">
+                    {% csrf_token %}
+                    {{form.media}}
+                    {{form.as_p}} 
+                    {{form.crispy_form}} 
+                    <label for="tags">Tags:</label> <br>
+                    <input type="text" name="tags" id="tags" class="form-control">   <br>
+                    <input type="submit" value="Add" class="btn btn-secondary">
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

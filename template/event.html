@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/event.css' %}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div id="event" class="container">
+        <div class="row p-3">
+            <h2>Events</h2> <hr>
+            <div class="col-12">
+                
+                <div class="row justify-content-center">
+                    {% for c in camps %}
+                    <div class="col-12 col-lg-5 col-xl-5 camp m-1 m-lg-3 m-xl-3">
+                        <div class="row p-3">
+                            <div class="col-12 col-lg-5 col-xl-5 p-0">
+                                <div class="camp_images">
+                                    <img class="camp_banner" src="{{c.banner.url}}" alt="">
+                                    <!-- <img class="camp_logo" src="{{c.camp_logo.url}}" alt=""> -->
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 col-lg-7 col-xl-5">
+                                <h5>{{c.name}}</h5>
+                                <h6 style="color: rgb(0, 109, 0);">{{c.date}} <br> {{c.camp_topic}} </h6>
+                                <hr>
+                                <a href="">See Details</a>  
+                            </div>
+                        </div>
+                    </div>{% endfor %}
+                </div>
+                    
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+
+
+#profile{
+    background-color: rgb(243, 243, 243);
+}
+
+.card{
+    margin: 20px;
+}
+
+.profile_cards > div{
+    float: left;
+    margin: 8px;
+    background-color: white;
+    text-align: right;
+    width: 200px;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #profile{
+    text-align: left;
+}
+
+#progress-bar{
+    width: 80%;
+    height: 15px;
+    border: 0.5px solid grey;
+    border-radius: 3px;
+    background-color: rgb(255, 50, 50);
+    position: relative;
+    display: inline-block;
+}
+
+#positive-bar{
+    height: 100%;
+    background-color: royalblue;
+}
+
+#leaderboard{
+    height: fit-content;
+    border: 0.5px solid lightgrey;
+    border-radius: 7px;
+}
+
+#leaderboard .row .col-6:nth-child(2){
+    text-align: right;
+}
+
+.user_badge img{
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+}
+
+/* #leaderboard #text{
+    bac
+} */ */

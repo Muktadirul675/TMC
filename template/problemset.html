@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+<style>
+    .container{
+        text-align: center;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container p-2">
+        <div class="row">
+            <div class="col-12">
+                <h2>Problems</h2><hr>
+            </div>
+            
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="row">
+                    <h4>See Problems of:</h4> <br> <br>
+                     <div class="col-10 col-lg-5 col-xl-5 m-2 p-3 bg-light">
+                        <a href="{% url 'tmc:topic_problems' 'Math' %}"> <img width="30px" height="30px" src="/static/images/fx.png" alt=""> Mathematics</a>
+                     </div>
+                     <div class="col-10 col-lg-5 col-xl-5 m-2 p-3 bg-light">
+                        <a href="{% url 'tmc:topic_problems' 'Physics' %}"> <img  width="30px" height="30px" src="/static/images/emc.png" alt=""> Physics</a>
+                     </div>
+                </div>
+               <div class="row">
+                   <div class="col-12">
+                       <hr>
+                       {% if is_problem_maker %}
+                        <a href="{% url 'tmc:add_problem' %}" class="btn btn-primary">Add Problem</a>
+                        {% else %}
+                        <h6>If you want to add problems, make a <a href="">request.</a></h6>
+                       {% endif %}
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

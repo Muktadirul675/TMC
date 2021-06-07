@@ -1,0 +1,20 @@
+.camp{
+    height: fit-content;
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+}
+
+
+.camp .camp_logo{
+    position: absolute;
+    top: 50;
+    transform: translateX(-100%);
+    height: 30px;
+    width: 30px;
+}
+.camp .camp_banner{
+    height: 20vh;
+    width: 100%;
+    border-radius: 5px;
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+}

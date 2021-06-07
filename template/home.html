@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block body %}
+<div id="home">
+
+    <div class="conatiner-fluid">
+        <!-- !!! 1st Try !!! -->
+        <!-- <div class="row">
+            <div class="cover-page col-12">
+                
+            </div>   
+        </div> -->
+
+        <div class="row m-5 justify-content-center">
+            <div class="col-10">
+                <div id="about" class="row" >
+                    <div id="description" class="col-12 col-lg-7 col-xl-7">
+                        <h1>Hey Math Enthusiats!</h1> <br>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo nisi vel orci convallis laoreet. Nunc egestas pretium sem, eu mattis nunc varius id. In interdum sed magna sed interdum. Nullam euismod a quam ut tincidunt. Maecenas blandit vitae neque et euismod. Donec in consectetur turpis, imperdiet tristique nulla. Maecenas blandit vitae neque et euismod. <br>  <br>
+                            <a href=""> <i class="fas fa-arrow-down"></i> Explore</a>
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-5 col-xl-5">
+                        <img id="tmc_image" src="/static/images/tmc_logo.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="blog_hot_topics" class="row p-5 justify-content-center" >
+            <div class="col-8">
+                <h3>Blog Posts</h3>
+            </div>
+        </div> -->
+    
+    </div>
+
+</div>
+{% endblock %}

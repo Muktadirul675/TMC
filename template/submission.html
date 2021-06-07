@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+<title>Document</title>
+<link rel="stylesheet" href="{% static 'css/submission.css' %}">
+<link rel="stylesheet" href="css/all.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="container submission p-5">
+  <style>
+    .submission{
+      text-align: center;
+    }
+  </style>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-12">
+      <h4 class="submission-id">
+        #{{submission.id}}
+      </h4>
+    </div>
+    <hr>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-2 m-1">
+      <a href="">{{submission.user.username}}</a> 
+    </div>
+    <div class="col-2 m-1">
+      <a href="">{{submission.problem.problem_name}}</a> 
+    </div>
+    <div class="col-2 m-1">
+      <p id="{{status}}">{{status}}</p>
+      <style>
+        #Correct{
+          color: green;
+        }
+        #Wrong{
+          color: red;
+        }
+      </style>
+    </div>
+  </div>
+  <div class="row status-img justify-content-center align-items-center">
+    <style>
+      .status-img{
+        text-align: center;
+      }
+      .status-img img{
+        width: 28vw;
+        height: 40vh;
+      }
+      @media(max-width: 991px){
+        .status-img img{
+        width: 35vw;
+        height: 30vh;
+      }
+      }
+    </style>
+    {% if status == "Correct" %}
+      <img src="/static/images/vict2.png" alt=""> <br>
+      <h5>Well Done! You have made it!</h5>
+    {% else %}
+      <img src="/static/images/cancel.png" alt=""> <br>
+      <h5>That's was a wrong one. But <a href="{% url 'tmc:problem' submission.problem.id %}">try again!</a> </h5>
+    {% endif %}
+    <!-- <button style="width: fit-content;color: white;" class="btn btn-primary" onclick="show_ans()">Your Answer</button> -->
+  </div>
+</div>
+
+<style>
+  .ans-box{
+    width: 30vw;
+    height: 20vh;
+    background-color: rgb(167, 167, 167);
+    color: white;
+    display: none;
+    position: absolute;
+    top: 20;
+    left: 50;
+    /* transform: translateX(-50%) translateY(-50%); */
+  }
+</style>
+
+<!-- <div class="ans-box">
+  <h3>Your Solution</h3>
+  <h6>{{submission.ans}}</h6> <hr>
+  <button clas="btn btn-secondary" onclick="close_ans()">Close</button>
+</div> -->
+
+<script>
+  const show_ans = () => {
+    $(".ans-box").css({
+      "display": "inherit"
+    })
+  }
+  const close_ans = () => {
+    $(".ans-box").css({
+      "display": "none"
+    })
+  }
+</script>
+
+
+{% endblock %}

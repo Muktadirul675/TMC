@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+
+{% block body %}
+
+<div id="profile" class="container p-5">
+    <div class="row">
+        <div class="col-8">
+            <div class="media px-5 d-flex align-items-center">
+                <img src="{{profile.image.url}}" class="p-1 img-thumbnail rounded-circle" width="90" height="90" alt="">
+                <div class="media-body m-2">
+                    <h3>{{user}}</h3>
+                </div>
+            </div>
+            <div class="profile_cards">
+                <div>
+                    <h3>12896 Z</h3>
+                    <h5>Rank</h5> <hr>
+                </div>
+                <div>
+                    <h3>{{solved}} / {{total_problems}}</h3>
+                    <h5>Problem Solved</h5> <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+<!-- <div class="row">
+        <div class="col-12 col-lg-6 col-xl-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="description">
+                        <div class="media d-flex align-items-center">
+                            <img src="{{profile.image.url}}" alt="image" width="120" height="120"
+                                class="mr-3 rounded-circle img-thumbnail shadow-sm">
+                            <div class="media-body ml-3">
+                                <h4 class="m-0">{{user}}</h4>
+                                <p class="font-weight-normal text-muted mb-0">{{profile.bio}}</p>
+                            </div>
+                        </div> <br>
+                        <p>
+                            <i class="fas fa-graduation-cap"></i> Rank: #{{profile.rank}} <br>
+                            <i class="fas fa-envelope"></i> Email: {{user.email}} <br>
+                            <i class="fas fa-briefcase"></i> Work: {{profile.work}} <br>
+                            <i class="fas fa-university"></i> Institution: {{profile.institution}} <br>
+                            <i class="fas fa-map-marker-alt"></i> Address: {{profile.address}}<br>
+                            <i class="fas fa-phone"></i> Contact No: {{profile.contact_no}} <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <h5>Roles:</h5>
+                    <ul>
+                        {% for g in user.groups.all %}
+                        <li>{{g.name}}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+                <div class="col-6">
+                    <h5>Progress: {{progress}}% </h5>
+                    <div class="ml-2" id="progress-bar">
+                <div id="positive-bar" style="width:{{progress}}%"></div>
+            </div> <br>
+                   <h6>Problems Solved: {{solved}} </h6>  <br>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+        </div>
+        <div class="col-12 col-lg-6 col-xl-6 p-3 px-4">
+            <div class="tab">
+                <div class="tab-pills">
+                    <li> <button class="tab-btn btn-link" id="blog_btn" data-toggle="blog">Articles</button> </li>
+                    <li class=""> <button class="tab-btn btn-link" id="camp_btn" data-toggle="camp">Camps</button> </li>
+                    <li> <button class="tab-btn btn-link" id="rsrc_btn" data-toggle="resources">Resources</button> </li>
+                    <li> <button class="tab-btn btn-link" id="sbmsn_btn" data-toggle="submissions">Submissions</button> </li>
+                </div>
+                <div class="tab-body p-4"></div>
+                <div class="tab-contents">
+                    <div id="blog">
+                        <h3>Blog Articles</h3>
+                        <ul>
+                            <li>Number Theory</li>
+                            <li>Combinatorics</li>
+                            <li>Geometry</li>
+                        </ul>
+                    </div>
+                    <div id="camp">
+                        <h3>Camps Participated In</h3>
+                    </div>
+                    <div id="resources">
+                        <h3>Resources given by {{user}}</h3>
+                    </div>
+                    <div id="submissions">
+                        <h3>Submissions</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vertical-tab d-none">
+                <div class="v-tab-pills">
+                    
+                </div>
+                <div class="v-tab-body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="container-fluid mt-3 p-4" id="leaderboard">
+                <h5>In <a href="">Leaderboard</a></h5>
+
+                <div class="row">
+                    <div class="col-12">
+                        <li><a href="">#1. tmc</a></li>
+                        <li><a href="">#2. Dell</a></li>
+                        <li><a href="">#3. Aminul</a></li>
+                        <li><a href="">#4. Arko</a></li>
+                        <li><a href="">#5. Mushi</a></li>
+                        <li><a href="">#1. tmc</a></li>
+                        <li><a href="">#2. Dell</a></li>
+                        <li><a href="">#3. Aminul</a></li>
+                        <li><a href="">#4. Arko</a></li>
+                        <li><a href="">#5. Mushi</a></li>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+
+
+
+

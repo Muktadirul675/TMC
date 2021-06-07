@@ -1,0 +1,52 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/problem.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="problem" class="container-fluid p-5">
+        <div class="row">
+            <div class="col-12 col-lg-7 col-xl-7">
+                <h3>#{{problem.id}} {{problem.problem_name}}</h3>
+                <h6>Given By: {{problem.problem_maker}}</h6>
+                <hr>  <br>
+                <p class="px-3">
+                    {{problem.problem|safe}}
+                </p>  <br><br><hr>
+                {% if user.is_authenticated %}
+                <form method="POST" class="input-group">
+                {% csrf_token %}
+                    <input placeholder="Your Answer" type="text" name="answer" class="input-text">
+                    <input type="Submit" class="btn btn-primary">
+                </form>     
+                {% else %}
+                <h6><a href="{% url 'tmc:user_login' %}">Login</a> to submit answers</h6>
+                {% endif %}
+                <h6><a href="{% url 'tmc:topic_problems' 'Math' %}">Try another problems</a></h6>
+            </div>
+            <div class="col-12 col-xl-4 col-lg-4 p-5">
+                <p>
+                    Tried: {{problem.tried.count}} <br>
+                    Solved: {{problem.solved.count}} <br>
+                    Problem Hardness: {{problem.problem_hardness}} <br>   
+                   <hr>
+                       First Solve:
+                       {% if problem.first_solve == "None" %}
+                        None
+                        {% else %}
+                        <a href="{% url 'tmc:other_profile' problem.first_solve %}">@{{problem.first_solve}}</a> 
+                        {% endif %}
+                   <hr>
+                       Same Problems: 
+                           <li># Problem 1</li>
+                           <li># Problem 2</li>
+                           <li># Problem 3</li>
+                   <hr>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/problemset.css' %}">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+<script src="https://kit.fontawesome.com/212844c17f.js" crossorigin="anonymous"></script>
+<title>problemset</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container problems">
+    <header>
+        <h2> {{topic}} Problems</h2>
+    </header> <br>
+    <!-- <div class="top-btns">
+        <div class="subject btn">
+            <button>Math</button>
+            <button>Physics</button>
+        </div>
+        <div>
+            <span><input type="search" placeholder="search"><i class="fas fa-search"></i></span>
+            <button>Solved</button>
+            <select class="dropdown">
+                <option value="most solved" selected><a>Most solved</a></option>
+                <option value="Random"><a>Random</a></option>
+                <option value="difficulty"><a>Difficulty</a></option>
+            </select>
+        </div>
+    </div> -->
+    <div class="row mb-2">
+        <div id="search" class="col-2">
+                <div>
+                    <input type="search" name="" id="">
+                </div>
+                <div><i class="fas fa-search"></i></div>
+        </div>
+        
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-lg-6 col-xl-6">
+            {% for p in problems %}
+            <a href="{% url 'tmc:problem' p.id %}" id="problem-{{p.id}}" class="problem p-3 mb-1 {{p.problem_hardness}}">
+                <div class="row">
+                    <div class="col-8 col-lg-6 col-xl-6 problem_name p-0">
+                        {{p.problem_name}} 
+                        <div class="tag-group">
+                            {% for t in p.tags.all %}
+                            <div class="tag">{{t.name}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-1 hardness">
+                        E
+                    </div>
+                    <div class="col-3 solve-try">
+                        {{p.solved.count}} / {{p.tried.count}}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="col-12 col-lg-5 col-xl-5 m-1 p-1">
+            <div class="top-solvers">
+                <h5>Top Solvers</h5>
+                <hr>
+                <div class="solvers">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {% endblock %}
