@@ -1,1 +1,1 @@
-web: gunicorn TMC2.wsgi --log-file
+web: gunicorn myproject.wsgi
