@@ -48,10 +48,10 @@
           <div id="profile_nav" class="col-12 col-lg-2 col-xl-2 d-flex justify-content-center align-items-center">
             <div class="deck">
               {% if user.is_authenticated %}
-              <a href="">  <img src="{{profile.image.url}}" alt=""><span id="user_name">{{user}}</span></a> 
+              <a href="{% url 'tmc:profile' %}">  <img src="{{profile.image.url}}" alt=""><span id="user_name">{{user}}</span></a> 
               | <a href="{% url 'tmc:user_logout' %}">Logout</a>
               {% else %}
-              <a href="{% url 'tmc:user_login' %}"> Login</a> <span class="mx-2"></span> <a href="">Register</a>
+              <a href="{% url 'tmc:user_login' %}"> Login</a> <span class="mx-2"></span> <a href="{% url 'tmc:user_registration' %}">Register</a>
               {% endif %}
             </div>
           </div>
@@ -62,13 +62,13 @@
                 <li><a href="{% url 'tmc:problem_set' %}">Problems</a></li>
                 <li><a href="{% url 'tmc:leaderboard' %}">Leaderboard</a></li>
                 <li><a href="">Contests</a></li>
-                <li><a href="{% url 'tmc:event' %}">Events</a></li>
+                <li><a href="{% url 'camp:camps' %}">Camps</a></li>
                 <li><a href="">Blog</a></li>
                 {% if user.is_authenticated %}
                 <li class="hidden"><a href=""> <img src="{{profile.image.url}}" height="30" width="30" alt=""> Your Profile</a></li>
                 <li class="hidden"><a href="">Logout</a></li>
                 {% else %}
-                <li class="hidden"><a href="">Login</a> </li>
+                <li class="hidden"><a href="{% url 'tmc:user_login' %}">Login</a> </li>
                 {% endif %}
             </div>
           </div>
@@ -76,6 +76,7 @@
       </div>
     </div>
   </div>
+  {% comment %} <a id="arrow" class="rounded-circle" href="#nav"><i class="fas fa-arrow-up"></i></a> {% endcomment %}
 
   <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">

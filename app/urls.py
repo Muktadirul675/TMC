@@ -17,8 +17,8 @@ urlpatterns = [
     path('user_logout/',views.user_logout,name="user_logout"),
     path('topic_problems/<str:topic>/',views.topic_probelm_set,name="topic_problems"),
     path('problemset/problem/add_problem', views.add_problem, name="add_problem"),
-    path('event/',views.event,name="event"),
     path('leaderboard/', views.leaderboard, name="leaderboard"),
+    path('user_registration/', views.user_registration, name="user_registration"),
 ]
 
 

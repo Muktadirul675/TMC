@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+    <style>
+    .container{
+        text-align: center;
+    }
+    #reg_form{
+        border: 1px solid #5271ff;
+        border-radius: 5px;
+        text-align: left;
+    }
+
+    #reg_form .header{
+        background-color: #5271ff;
+        text-align: center;
+        color: white;
+    }
+
+
+    </style>
+
+{% endblock %}
+
+{% block body %}
+
+    <div id="registration" class="container  justify-content-center p-0" >
+        <div class="row m-0 justify-content-center align-items-center" >
+            <div class="col-4">
+                <img src="/static/images/tmc_logo.jpg" class="mt-2 mb-1 rounded-circle img-thumbnail" alt="" width="80" height="80" id="logo_img"> <br>
+            </div>
+        </div>
+        <div class="row mb-5 justify-content-center p-0">
+            <div id="reg_form" class="col-5 p-0">
+                <div class="header p-2">
+                    <h4 class="p-0">Registration for TMC</h4>
+                </div>
+                <form method="POST" class="form-group px-5 py-3">
+                    {% csrf_token %}
+                    <label for="email"><h6>Email</h6></label>
+                    <input class="form-control" type="email" name="email" id="email">
+                    <label for="First Name"><h6>First Name</h6></label>
+                    <input class="form-control" type="text" id="first_name" name="first_name" >
+                    <label for="Last Name"><h6>Last Name</h6></label>
+                    <input class="form-control" type="text" id="last_name" name="last_name" > 
+                    <label for="password"><h6>Password</h6></label>
+                    <input class="form-control" type="password" name="password" id="password"><br>
+                    <input type="submit" value="Submit" class="btn btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,51 @@
+.tab{
+    border: 0.5px solid lightgray;
+    border-radius: 7px;
+    height: 400px;
+}
+
+.tab ::-webkit-scrollbar{
+    background-color: transparent;
+    width: 5px;
+}
+
+.tab ::-webkit-scrollbar-thumb{
+    background-color: gray;
+    width: 5px;
+    border-radius: 30px;
+}
+
+.tab-pills{
+    border: 0px;
+    border-bottom: 0.5px solid lightgray;
+}
+
+.tab .tab-pills li{
+    list-style: none;
+    display: inline-block;
+    padding: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.tab-is-active{
+    background-color: whitesmoke;
+    border: 0px 0px 1px 0px;
+}
+
+.btn-link{
+    text-decoration: none;
+}
+
+.tab-body{
+    height: 100%;
+    width: 100%;
+}
+
+.tab-contents{
+    display: none;
+}
+
+h3 small{
+    font-size: 18px;
+}

@@ -1,0 +1,118 @@
+/* #home{
+    width: 100vw;
+    height: fit-content;
+    background-color: #5271ff;
+    background: url("/static/images/home1.8971399217e1.jpg"), linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+    background-repeat: 0;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#home #cover{
+    width: 100%;
+    height: 100%;
+} */
+
+/* #club_name::after{
+    content: "";
+    background-color: black;
+    width: 15%;
+    height: 4px;
+    display: inline-block;
+}
+
+
+#club_name::before{
+    content: "";
+    background-color: black;
+    width: 15%;
+    height: 4px;
+    display: inline-block;
+} */
+/* 
+#description{
+    text-align: left;
+}
+
+#description_body{
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: rgba(255,255,255,0.4);
+    width:fit-content;
+}
+
+ 
+.trivuj{
+    color: rgb(255, 93, 93);
+} 
+
+#content{
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 15px;
+    margin-top: -10%;
+}
+
+#content-body{
+    text-align: left;
+}
+
+#content-body footer a{
+    color: rgb(124, 0, 0);
+    display: inline-block;
+    margin: 3px;
+}
+
+#blog_topic_navigator{
+    display: inline;
+    background-color: rgba(225,225,225,0.4);
+}
+
+#blog_article > div{
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 15px;
+}
+
+#blog_article a{
+    color: white;
+}
+
+#blog_article  li{
+    list-style: none;
+}
+
+
+#blog_article  .container-fluid{
+    text-align: left;
+
+} */
+
+.cover-page{
+    height: 250px;
+    width: 100%;
+    background-image: url("/static/images/tmc_cover.00f083613e28.jpg");
+    background-size: cover;
+    background-repeat: 0;
+}
+
+.cover-page img{
+    height: 100%;
+    width: 100%;
+}
+
+#description{
+    text-align: left;
+}
+
+#tmc_image{
+    width: 80%;
+    height: 300px;
+}
+
+#about{
+    height: 300px;
+}
+

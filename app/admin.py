@@ -10,7 +10,6 @@ admin.site.register(
         models.Profile,
         models.Badge,
         models.ProblemTag,
-        models.Camp,
         models.InRank,
     )
 )

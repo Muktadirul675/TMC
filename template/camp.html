@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/camp.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+    <div class="container-fluid pt-2" >
+        <div class="row">
+            <div  class="vertical-nav bg-white col-3" id="sidebar">
+                <div class="py-4 px-3 mb-4 bg-light">
+                    <img id="camp_logo" class="rounded-circle" src="{{camp.camp_logo.url}}" alt="">
+                    <h5>{{camp.name}}</h5>
+                    <h6>{{camp.camp_topic}} <br> {{camp.date}} <br> {{camp.status}} </h6>
+                </div>
+        
+                <!-- <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0"><i class="fas fa-dashboard"></i> Dashboard</p> -->
+        
+                <ul class="nav flex-column b-white mb-0">
+                    <li class="nav-item">
+                        <button id="details-btn" class="btn btn-link w-100 px-1 bg-light">
+                           <i class="fas fa-user-friends"></i> Details
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="trainers-btn" class="btn btn-link w-100 px-1 bg-light">
+                            <i class="fa fa-question"></i> Trainers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="organizers-btn" class="btn btn-link w-100 px-1 bg-light">
+                            <i class="fas fa-newspaper"></i>
+                            Organizers
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="announcements-btn" class="btn btn-link w-100 px-1 bg-light">
+                            <i class='fas fa-calendar-week'></i> Announcements
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="contest-btn" class="btn btn-link w-100 px-1 bg-light">
+                            <i class='fas fa-calendar-week'></i> Camp Contests
+                        </button>
+                    </li> <hr>
+                    <li class="nav-item">
+                        <button id="register-btn"  class="btn btn-link w-100 px-1 bg-light">
+                            <i class='fas fa-calendar-week'></i> Register to this camp
+                        </button>
+                    </li> <hr>
+                    <li class="nav-item">
+                        <button id="campers-btn" class="btn btn-link w-100 px-1 bg-light">
+                            <i class='fas fa-calendar-week'></i> Campers
+                        </button>
+                    </li>
+                </ul>
+                <br>
+        
+            </div>
+            <div id="camp_content"  class="col-8 p-3">
+                <img src="{{camp.banner.url}}" width="100%" height="300px" alt="">  <br> <br>
+                <h4>{{camp.name}}</h4>
+                <h6>{{camp.date}} <br> {{camp.camp_topic}} </h6>
+            </div>
+        </div>
+        <div id="camp_info" class="d-none" >
+            <div id="details" class="col-8">
+                {{camp.description|safe}}
+            </div>
+            <div id="trainers" class="col-8">
+                <div class="row">
+                    <div class="col-10"> 
+                        <h2>Chiefs:</h2> 
+                        {% for c in chiefs %}
+                        <!-- <div class="chief">
+                            <img src="{{c.image.url}}"  width="80px" height="80px" class="rounded-circle img-thumbnail shadow-sm" alt="">
+                            <h3>{{c.name}}</h3>
+                            <p class="font-weight-normal text-muted mb-0">{{c.work}} at {{c.instituion}} </p>
+                        </div> <hr> -->
+                        <div class="media d-flex align-items-center">
+                            <img src="{{c.image.url}}" alt="image" width="80px" height="80px" style="margin-right: 40px;" class="rounded-circle img-thumbnail shadow-sm">
+                            <div class="media-body">
+                                <h3 class="m-0">{{c.name}}</h3>
+                                <p class="font-weight-normal text-muted mb-0">{{c.work}} at {{c.instituion}} </p>
+                            </div>
+                        </div> <hr>
+                        {% endfor %}
+                        <h2>Trainers:</h2> <br>
+                        {% for t in trainers %}
+                        <div class="media d-flex align-items-center">
+                            <img src="{{t.image.url}}" alt="image" width="80px" height="80px" style="margin-right: 40px;" class="rounded-circle img-thumbnail shadow-sm">
+                            <div class="media-body">
+                                <h3 class="m-0">{{t.name}}</h3>
+                                <p class="font-weight-normal text-muted mb-0">{{t.work}} at {{t.instituion}} </p>
+                            </div>
+                        </div> <hr>
+                        {% endfor %}      
+                    </div>
+                </div>
+            </div>
+            <div class="col-8" id="announcements">
+                {% for a in announces %}
+                    <div class="announce p-3">
+                        <h2>
+                            {% for p in a.user.profile.all %}
+                            <img src="{{p.image.url}}" class="rounded-circle img-thumbnail" width="70px" height="70px" alt="">
+                            {% endfor %}
+                            {{a.user.first_name}}
+                        </h2>
+                        <p>{{a.update}}</p> 
+                        {{a.announce|safe}}
+                    </div> <hr>
+                {% endfor %}
+            </div>
+            <div id="organizers" class="col-8">
+                <h2>Organizers:</h2>
+                {% for o in camp.organizers.all %}
+                <div class="media d-flex align-items-center">
+                    <img src="{{o.image.url}}" alt="image" width="80px" height="80px" style="margin-right: 40px;" class="rounded-circle img-thumbnail shadow-sm">
+                    <div class="media-body">
+                        <h3 class="m-0">{{o.name}}</h3>
+                        <a href=""> <img src="/static/images/facebook.png" class="rounded-circle" width="23px" height="23px" alt=""></a>
+                    </div> 
+                </div><hr>
+                {% endfor %}
+            </div>
+            <div id="register" class="col-8 p-3">
+                <h3>Register to {{camp.name}}</h3> 
+                <p>
+                    Topic: {{camp.camp_topic}} <br>
+                    Date: {{camp.date}} <br>
+                    Status: {{camp.status}}
+                </p>
+                <form method="POST" action="{% url 'camp:reg_to_camp' camp.id %}">
+                    {% csrf_token %}
+                    {% if not already_reg %}
+                    <div id="classes p-3">
+                        <h3>Select your class:</h3>
+                        {% for c in classes %}
+                            <input type="radio" name="class" id="class" value="{{c}}"> {{c}} <br>
+                        {% endfor %} <br>
+                    </div>
+                    {% endif %}
+                    {% if not user.is_authenticated %}
+                        <h4>Please <a href="{% url 'tmc:user_login' %}">login</a> to register in camps</h4>
+                    {% else %}
+                    {% if camp.status == "Ongoing" or camp.status == "Upcoming"  %}
+                        {% if not already_reg %}
+                        <input type="submit" value="Register" class="btn btn-success">
+                        {% else %}
+                        <h6>You have already registered</h6>
+                        {% endif %}
+                    {% endif %}
+                    {% if camp.status == "Held" %}
+                        <h6>The camp is end! You can see other camps!</h6>
+                    {% endif %}    
+                </form>
+                {% endif %}
+            </div>
+            <div id="campers" class="col-8 p-3">
+                <h2>Campers of this camp ({{camp.campers.all.count}}) :</h2>
+                <div class="mt-4 p-3">
+                    <table class="table table-striped table-bordered table-hover">
+                        <caption>Campers</caption>
+                        <thead>
+                            <tr>
+                                <th>Camper ID-Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for c in camp.campers.all %}
+                            <tr>
+                                <td>
+                                    <h5> 
+                                    {{c.reg_id}}
+                                    <a href="{% url 'tmc:other_profile' c.user.username %}">{{c.user.first_name}} {{c.user.last_name}}</a> </h5>         
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        
+                </div>
+            </div>
+            <div id="contest" class="col-8 p-3">
+                <h3>Camp Contests</h3>
+                <div class="p-3">
+                {% if ongoing %}
+                <h4>Ongoing:</h4>
+                <div class="p-1">
+                    {% for j in ongoing %}
+                        <h5><a href="">{{j.name}}</a></h5>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if upcoming %}
+                <h4>Upcoming:</h4>
+                <div class="p-1">
+                    {% for j in upcoming %}
+                        <h5><a href="">{{j.name}}</a></h5>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if held %}
+                <h4>Held:</h4>
+                <div class="p-1">
+                    {% for j in held %}
+                        <h5><a href="">{{j.name}}</a></h5>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+
+<script>
+    $("#details-btn").on("click", ()=> {
+        $("#camp_content").html($("#details").html());
+    });
+    $("#trainers-btn").on("click", ()=> {
+        $("#camp_content").html($("#trainers").html());
+    });
+    $("#announcements-btn").on("click", ()=> {
+        $("#camp_content").html($("#announcements").html());
+    });
+    $("#organizers-btn").on("click", ()=> {
+        $("#camp_content").html($("#organizers").html());
+    });
+    $("#register-btn").on("click", ()=> {
+        $("#camp_content").html($("#register").html());
+    });
+    $("#campers-btn").on("click", ()=> {
+        $("#camp_content").html($("#campers").html());
+    });
+    $("#contest-btn").on("click", ()=> {
+        $("#camp_content").html($("#contest").html());
+    });
+
+    // const register = (classes) => {
+    //     for(var i of classes){
+    //         $("#classes").append(i);
+    //     }
+    // }
+
+</script>
+
+{% endblock %}

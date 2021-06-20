@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/contest.css' %}">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9 col-xl-9 p-3">
+                {% if camp_contests_upcoming %}
+                <h3>Upcoming Camp Contests</h3> <br>
+                    {% for i in camp_contests_upcoming %}
+                        <div class="contest px-3">
+                            <h6><a href="">{{i.name}} on {{i.date}}</a> </h6> 
+                        </div> <hr>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-12 col-lg-3 col-xl-3 p-3">
+                <h3>Ongoing Contests</h3> <br>
+                {% if camp_contest_ongoing %}
+                    {% for i in camp_contest_ongoing %}
+                        <div class="contest px-1">
+                            <h6><a href="">{{i.name}}</a></h6>
+                        </div> <hr>
+                    {% endfor %}
+                {% else %}
+                    <h5>No ongoing contests now.</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

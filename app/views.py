@@ -1,3 +1,5 @@
+from django.db.models.query import FlatValuesListIterable, RawQuerySet
+from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -7,7 +9,7 @@ from . import models
 from . import forms
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
-
+import random
 
 # External Functions
 
@@ -17,6 +19,23 @@ def is_problem_maker(user):
             return True
 
     return False
+
+def get_id(model_class,length:int):
+    count = 0
+    for i in model_class.objects.all():
+        count += 1
+
+    count += 1
+
+    id = str(count)
+    trailing = ""
+
+    for i in range(length-(len(id))):
+        trailing += "0"
+
+    trailing += id
+
+    return f"#{trailing}"
 
 # Create your views here.
 
@@ -55,7 +74,9 @@ def submission(request,status,problem,tried):
 
 def problem(request,pk):
     problem = models.Problem.objects.get(pk=pk)
-    cont = {'problem':problem}
+    first_solve = "None"
+    if not problem.first_solve == "None":
+        first_solve = User.objects.get(username=problem.first_solve).first_name
 
     def already_solved():
         for p in models.ProblemSolved.objects.all():
@@ -94,15 +115,18 @@ def problem(request,pk):
                     push_to_rank = models.InRank()
                     push_to_rank.user = request.user 
                     push_to_rank.save()
-                if problem.tried.count == 0:
+                if problem.tried.count() <= 1:
                     problem.first_solve = request.user.username
+                    print(request.user.username, " first solved it")
                     problem.save()
                 return submission(request,"Correct",problem,tried)
             return submission(request,"Wrong",problem,tried)
 
         if already_solved() or already_tried():
             return HttpResponse("Already Solved")
-
+    
+    cont = {'problem':problem,'solved':already_solved(), 'first_solve_username': problem.first_solve ,'first_solve':first_solve}
+    
     return render(request, 'problem.html',cont)
 
 @login_required(login_url="/user_login/")
@@ -128,14 +152,9 @@ def add_problem(request):
 
     return render(request, 'add_problem.html',cont)
 
-def event(request):
-    camps = models.Camp.objects.all()
-    cont = {'camps':camps}
-
-    return render(request, "event.html",cont)
 
 def profile(request):
-    def get_solved_problem_count():
+    def get_solved_problem_count(topic=None):
         solved = 0
         for p in models.ProblemSolved.objects.all():
             if p.user.username == request.user.username:
@@ -143,13 +162,79 @@ def profile(request):
 
         return solved
 
+    def get_math_solved_problem_count():
+        solved = 0
+        for p in models.ProblemSolved.objects.all():
+            if p.user.username == request.user.username and p.problem.problem_cat == "Math":
+                solved += 1
+
+        return solved
+
+    def get_physics_solved_problem_count():
+        solved = 0
+        for p in models.ProblemSolved.objects.all():
+            if p.user.username == request.user.username and p.problem.problem_cat == "Physics":
+                solved += 1
+
+        return solved
+
+    def get_total_problems():
+        return models.Problem.objects.count()
+
+    def get_total_math_problems():
+        count = 0
+        for p in models.Problem.objects.all():
+            if p.problem_cat == "Math":
+                count += 1
+
+        return count
+    def get_total_physics_problems():
+        count = 0
+        for p in models.Problem.objects.all():
+            if p.problem_cat == "Physcis":
+                count += 1
+
+        return count
+
     def get_progress():
-        problems = models.Problem.objects.count()
-        solved = get_solved_problem_count()
+        try:
+            problems = get_total_problems()
+            solved = get_solved_problem_count()
 
-        return f'{((solved/problems) * 100):.2f}'
+            return f'{((solved/problems) * 100):.2f}'
+        except ZeroDivisionError: 
+            return 0
+    
+    def get_math_progress():
+        try:
+            problems = get_total_math_problems()
+            solved = get_math_solved_problem_count()
 
-    cont = {'profile':models.Profile.objects.get(user=request.user),'progress':get_progress(),'solved':get_solved_problem_count()}
+            return f'{((solved/problems) * 100):.2f}'
+        except ZeroDivisionError: 
+            return 0
+
+    def get_physics_progress():
+        try:
+            problems = get_total_physics_problems()
+            solved = get_physics_solved_problem_count()
+
+            return f'{((solved/problems) * 100):.2f}'
+        except ZeroDivisionError: 
+            return 0
+
+    print(get_math_progress(),get_physics_progress())
+
+    cont = {
+        'profile':models.Profile.objects.get(user=request.user),
+        'progress':get_progress(),
+        'math_progress': get_math_progress(),
+        'physics_progress': get_physics_progress(),
+        'solved':get_solved_problem_count(),
+        'math_solved': get_math_solved_problem_count(),
+        'physics_solved': get_physics_solved_problem_count(),
+        'total_problems':get_total_problems(),
+        }
 
     return render(request,'profile.html',cont)
 
@@ -167,6 +252,15 @@ def user_login(request):
         if request.method == "POST":
             username = request.POST['username']
             password = request.POST['password']
+            if len(username) != 6:
+                length = len(username)
+                new_name = ""
+                for i in range(0,6-length):
+                    new_name += "0"
+                new_name += username
+                username = new_name
+            if username[0] != "#":
+                username = "#"+username 
 
             user = authenticate(username=username,password=password)
 
@@ -261,4 +355,39 @@ def leaderboard(request):
     cont = {'ranks':final_rank, 'highest':highest}
     return render(request, 'leaderboard.html',cont)
 
+def user_registration(request):
+    if request.user.is_authenticated:
+        return redirect("tmc:home")
+    else:
+        if request.method == "POST":
+            def get_tmc_id():
+                return get_id(User,6)
+
+            print(get_tmc_id())
+
+            email = request.POST['email']
+            pswd = request.POST['password']
+            f_name = request.POST['first_name']
+            l_name = request.POST['last_name']
+            username = get_tmc_id()
+            new_user = User.objects.create_user(
+                username, email, pswd
+            )
+            new_user.first_name = f_name
+            new_user.last_name = l_name
+            new_user.save()
+
+            profile = models.Profile()
+            profile.user = new_user
+            profile.point = 0
+            profile.save()
+
+            user = authenticate(username=username,password=pswd)
+
+            if user is not None:
+                login(request, user)
+
+            return redirect("tmc:profile")
+            
+        return render(request, 'registration.html')
 

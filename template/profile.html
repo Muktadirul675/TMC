@@ -14,7 +14,8 @@
             <div class="media px-5 d-flex align-items-center">
                 <img src="{{profile.image.url}}" class="p-1 img-thumbnail rounded-circle" width="90" height="90" alt="">
                 <div class="media-body m-2">
-                    <h3>{{user}}</h3>
+                    <h3>{{user.first_name}} {{user.last_name}}</h3>
+                    <p>{{user}}</p>
                 </div>
             </div>
             <div class="profile_cards">
@@ -27,6 +28,13 @@
                     <h5>Problem Solved</h5> <hr>
                 </div>
             </div>
+        </div>
+        <div class="col-3">
+            <h4>Progress:</h4>
+            <h5>Mathematics {{math_progress}}% </h5>
+            <div class="progress"><div class="bar" style="width: {{math_progress}}%;"></div></div>
+            <h5>Physics {{physics_progress}}% </h5>
+            <div class="progress"><div class="bar" style="width: {{physics_progress}}%;"></div></div>
         </div>
     </div>
 </div>
