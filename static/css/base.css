@@ -103,6 +103,36 @@ a{
     text-align: center;
 }
 
+.navbar-nav{
+    background: lightgrey;
+    border-radius: 8px;
+    padding: 5px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+}
+
+.nav-item{
+    color: #00b5d4;
+    border-radius: 8px;
+    transition: 0.4s all;
+}
+
+.nav-item:hover{
+    background-color: #00b5d4 ;
+    color: white;
+}
+.carousel-item{
+    width: 100%;
+    height: 80vh;
+}
+
+.carousel-item img{
+    width:100%;
+    height: 100%;
+}
+
+
 @media(max-width: 991px){
     #user_name{
         display: none;

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Base</title>
-  <link rel="stylesheet" href="{% static 'bv5/dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bv5/dist/css/bootstrap.css' %}">
   <!-- <link rel="stylesheet" href="{% static 'foundation/assets/css/foundation.css' %}"> -->
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" href="{% static 'fa/css/all.css' %}">
@@ -17,71 +17,87 @@
 
 <body>
 
-  <div id="nav" class="shadow-sm">
-    <div class="nav-header w-100 px-lg-5">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-10 col-lg-10 col-xl-10">
-            <h4><a href="{% url 'tmc:home' %}"><img src="/static/images/tmc_logo.jpg" width="80" height="80" alt=""> </a> Trivuj Math Club
-            </h4>
-          </div>
-          <div class="col-2" id="collapse-btn" >
-            <button onclick="button_clicked()"><img src="/static/images/square.png" alt=""></button>
-            <script>
-                var show = false;
-                const button_clicked = () => {
-                  if(show == false){
-                    $("#navbar_navs").css({
-                      'display':'inherit',
-                    }); 
-                    show = true;
-                  }else{
-                    $("#navbar_navs").css({
-                      'display':'none',
-                    });
-                    show = false;
-                  }
-                  $("#collapse-btn button img").toggleClass("img-thumbnail");
-                }
-            </script>
-          </div>
-          <div id="profile_nav" class="col-12 col-lg-2 col-xl-2 d-flex justify-content-center align-items-center">
-            <div class="deck">
-              {% if user.is_authenticated %}
-              <a href="{% url 'tmc:profile' %}">  <img src="{{profile.image.url}}" alt=""><span id="user_name">{{user}}</span></a> 
-              | <a href="{% url 'tmc:user_logout' %}">Logout</a>
-              {% else %}
-              <a href="{% url 'tmc:user_login' %}"> Login</a> <span class="mx-2"></span> <a href="{% url 'tmc:user_registration' %}">Register</a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div id="navbar_navs" class="row">
-          <div class="col-12">
-            <div class="nav-buttons px-lg-5">
-                <li><a href="{% url 'tmc:problem_set' %}">Problems</a></li>
-                <li><a href="{% url 'tmc:leaderboard' %}">Leaderboard</a></li>
-                <li><a href="">Contests</a></li>
-                <li><a href="{% url 'camp:camps' %}">Camps</a></li>
-                <li><a href="">Blog</a></li>
-                {% if user.is_authenticated %}
-                <li class="hidden"><a href=""> <img src="{{profile.image.url}}" height="30" width="30" alt=""> Your Profile</a></li>
-                <li class="hidden"><a href="">Logout</a></li>
-                {% else %}
-                <li class="hidden"><a href="{% url 'tmc:user_login' %}">Login</a> </li>
-                <li class="hidden"><a href="{% url 'tmc:user_registration' %}">Login</a> </li>
-                {% endif %}
-            </div>
-          </div>
-        </div>
+  <!-- <nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="container container-fluid-sm container-fluid-md container-fluid-xs">
+      <a class="navbar-brand" href="#">BOC</a> <span id="vl2">|</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'tmc:home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'camp:camps' %}">Camps</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Blog <span id="vl">|</span></a>
+          </li>
+          <li class="nav-item">
+            {% if user.is_anonymous %}
+            <a class="nav-link" id="login" href="">Login</a>
+            {% else %}
+            <a class="nav-link" id="logout" href=""> <span id="welcome">Welcome, {{user}} |</span>
+              Logout</a>
+            {% endif %}
+          </li>
       </div>
     </div>
-  </div>
-  {% comment %} <a id="arrow" class="rounded-circle" href="#nav"><i class="fas fa-arrow-up"></i></a> {% endcomment %}
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-2">
+    <div class="container-fluid px-3">
+      <a class="navbar-brand" href="{% url 'tmc:home' %}">
+        <img src="/static/images/tmc_logo.jpg" alt="" width="50" height="44" class="d-inline-block align-text-top rounded-circle">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-question"></i> Problems
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#"> <i class="fas fa-square-root-alt"></i> Math</a></li>
+              <li><a class="dropdown-item" href="#">Physics</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Leaderboard</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'camp:camps' %}"> <i class="fas fa-users"></i> Camps</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"> <i class="fas fa-trophy"></i> Contests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"> <i class="fas fa-trophy"></i> Blog</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          {% if user.is_authenticated %}
+          Welcome, {{user}} <span class="mx-1"></span> <a href="{% url 'tmc:user_logout' %}">Logout</a>
+          {% else %}
+          <a href="{% url 'tmc:user_login' %}">Login</a>
+           <span class="mx-2"></span> 
+           <a href="{% url 'tmc:user_registration' %}">Register</a>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </nav>
 
   <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">
-  </script>
+    </script>
 
   {% block body %}{% endblock %}
 
