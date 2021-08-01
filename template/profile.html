@@ -11,6 +11,11 @@
 <div id="profile" class="container p-5">
     <div class="row">
         <div class="col-8">
+            {%  for m in messages %}
+                <div class="alert alert-info">
+                    {{m}}
+                </div>
+            {% endfor %}
             <div class="media px-5 d-flex align-items-center">
                 <img src="{{profile.image.url}}" class="p-1 img-thumbnail rounded-circle" width="90" height="90" alt="">
                 <div class="media-body m-2">

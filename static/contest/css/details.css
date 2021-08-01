@@ -1,0 +1,143 @@
+/* #ff5757
+#8c52ff
+#ff914d
+#7ed957
+#38b6ff
+#ffbd59
+#5271ff 
+#363636*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+body {
+    background: #f1efef;
+}
+.txt {
+    padding: 25px;
+}
+.heading {
+    margin-bottom: 20px;
+}
+.detailWrapper {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    border-radius: 5px !important;
+    box-shadow: 0px 0px 8px 2px #6666662b;
+}
+
+.contestImg {
+    width: 100%;
+    height: 300px;
+    background: #dff9ff;
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.contestImg img {
+    height: inherit;
+}
+.howTo {width: fit-content;margin-bottom: 20px;/* margin-left: 15px; */}
+
+.howTo a {
+    text-decoration: none;
+    color: black;
+}
+
+.howTo p {
+    border: 1.5px solid #9996;
+    padding: 11px 15px;
+    font-size: 14px;
+    color: #555;
+}
+.heading h2 {
+    margin-bottom: 24px;
+    font-size: 30px;
+}
+
+.block h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.block p {
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.block {
+    margin-bottom: 30px;
+}
+.specialTxt p {
+    padding: 10px 15px;
+    background: #f5f5f5;
+    border-left: 4px solid #5271ff;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.specialTxt {
+    width: fit-content;
+}
+.loginBtn {
+    margin-top: 20px;
+}
+.loginBtn button {
+    padding: 10px 12px;
+    background: #5271ffe0;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.fa-facebook-square{
+    color: #3b5998;
+}
+.fa-twitter-square{
+    color: #1da1f2
+}
+.fa-whatsapp-square{
+    color: #25d366;
+}
+.fa-linkedin{
+    color: #00a0dc;
+}
+.loginShareBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 35px;
+}
+
+.socials i {
+    font-size: 31px;
+    margin-right: 4px;
+}
+
+.loginShareBtn button {
+    padding: 10px 8px;
+    background: #7890fd;
+    border: none;
+    color: white;
+    font-size: 15px;
+    border-radius: 3px;
+    border-bottom: 4px solid #5271ff;
+    cursor: pointer;
+}
+.socials p {
+    margin-bottom: 7px;
+}
+
+/* <== Hovers==> */
+.socials i:hover {
+    transform: scale(1.1);
+}
+.loginShareBtn button:hover {
+    background: #6d87fb;
+}
+
+.loginShareBtn button:active {
+    background: #5271ff;
+}

@@ -21,4 +21,5 @@ urlpatterns = [
     path("",include("app.urls")),
     path('', include("camp.urls")),
     path('', include("contest.urls")),
+    path('blog/', include("blog.urls")),
 ]

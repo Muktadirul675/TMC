@@ -2,58 +2,103 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/problem.css' %}">
+<link rel="stylesheet" href="{% static 'Problem/css/details.css' %}">
 {% endblock %}
 
 {% block body %}
 
-    <div id="problem" class="container-fluid p-5">
-        <div class="row">
-            <div class="col-12 col-lg-7 col-xl-7">
-                <h3>#{{problem.id}} {{problem.problem_name}}</h3>
-                <h6>Given By: {{problem.problem_maker}}</h6>
-                <hr>  <br>
-                <p class="px-3">
-                    {{problem.problem|safe}} 
-                </p> <hr>
-                {% for t in problem.tags.all %}
-                    <div class="tag">{{t.name}}</div>
-                {% endfor %} <hr>
-                {% if not solved %}
-                    {% if user.is_authenticated %}
-                    <form method="POST" class="input-group">
-                    {% csrf_token %}
-                        <input placeholder="Your Answer" type="text" name="answer" class="input-text">
-                        <input type="Submit" class="btn btn-primary">
-                    </form>     
-                    {% else %}
-                    <h6><a href="{% url 'tmc:user_login' %}">Login</a> to submit answers</h6>
-                    {% endif %}
-                {% else %}
-                    <h6>You have already solved it</h6>
-                {% endif %}
-                <h6><a href="{% url 'tmc:topic_problems' 'Math' %}">Try another problems</a></h6>
+<section class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-11 col-md-6 col-lg-7 quesBody mt-3 bg-white p-4 border">
+            <div class="quesContainer">
+                <div class="quesHead">
+                    <div class="quesName">
+                        <h4>{{problem.problem_name}}</h4>
+                        <p><b>Score: </b>{{problem.point}} Point</p>
+                    </div>
+                    <div class="lang shadow-sm">
+                        <p><i class="fas fa-language"></i> <span>English</span></p>
+                        <div class="langset shadow">
+                            <ul>
+                                <li id="optLang" onclick="changeLang()">Bangla</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="quesTxt">
+                    {{problem.problem|safe}}
+                </div>
+                <div class="quesTags mt-4">
+                    <span>Geometry</span><span>Basic</span>
+                </div>
             </div>
-            <div class="col-12 col-xl-4 col-lg-4 p-5">
-                <p>
-                    Tried: {{problem.tried.count}} <br>
-                    Solved: {{problem.solved.count}} <br>
-                    Problem Hardness: {{problem.problem_hardness}} <br>   
-                   <hr>
-                       First Solve:
-                       {% if problem.first_solve == "None" %}
-                        None
-                        {% else %}
-                        <a href="{% url 'tmc:other_profile' problem.first_solve %}">@{{first_solve}}</a> 
-                        {% endif %}
-                   <hr>
-                       Same Problems: 
-                           <li># Problem 1</li>
-                           <li># Problem 2</li>
-                           <li># Problem 3</li>
-                   <hr>
-                </p>
+        </div>
+
+        <div class="col-11 col-md-6 col-lg-5 submitPart p-0">
+            <div class="statistics m-md-3 bg-white p-4 border">
+                <h4 class="py-2 ms-lg-2">Statistics</h4>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Tried</td>
+                            <td>{{problem.tried.all.count}}</td>
+                        </tr>
+                        <tr>
+                            <td>Solved</td>
+                            <td>{{problem.solved.all.count}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% if problem.first_solve == 'None' %}
+                                    None has solved this yet.Be the first to solve!
+                                {% else %}
+                                    First Solved
+                                {% endif %}
+                            </td>
+                            {% if not problem.first_solve == 'None' %}
+                                <td><a href="#">{{problem.first_solve}}</a></td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="submitSec mt-3 mb-3 m-md-3">
+                    <div class="submitInp">
+                        <form action="" method="POST" autocomplete="off">
+                            {% csrf_token %}
+                            <input type="number" step="0.01" name="answer" id="" placeholder="Your Answer" required>
+                            <input type="submit" value="" id="ansSubmit" hidden>
+                            <label for="ansSubmit"><i class="fas fa-paper-plane"></i>Submit</label>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="loginSec my-2">
+                    <a href="#">
+                        <i class="fas fa-sign-in-alt"></i><span>Login to submit</span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row similarQues">
+        <div class="col-lg-7 p-0 simQuesCon mt-3">
+            <h4 class="px-0 py-2 ms-2 ms-md-0 mb-1 mb-md-2">Similar Problems</h4>
+            <div class="row">
+                {% for p in more_problems %}
+                    <div class="col-md-4 simQuesConBox">
+                        <a href="#">
+                            <div class="simQuesBox border bg-white p-4 m-2 ms-md-0">{{p.problem_name}} - <small>Point: {{p.point}}</small>  </div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
+</section>
 {% endblock %}

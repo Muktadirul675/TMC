@@ -1,0 +1,59 @@
+/* fb-#1877f2 */
+/* twit-#1da1f2 */
+/* linkdein-#3a82e4 */
+/* youtube-#ff0000 */
+
+body {
+    background: #044e7d14;
+}
+.carousel-indicators [data-bs-target] {
+    background-color: #0e2c30;
+}
+img.card-img-top {
+    width: 77%;
+    margin: auto;
+    /* border: 1px solid; */
+}
+i.fa.fa-facebook-official {
+    color: #1877f2;
+}
+
+i.fa.fa-twitter {
+    color: #1da1f2;
+}
+
+i.fa.fa-youtube-play {
+    color: #ff0000;
+}
+
+.socialIcons i {
+    padding: 4px;
+    transition: 0.3s;
+}
+i.fa.fa-facebook-official:hover {
+    color: #1257af;
+    transform: scale(1.15);
+}
+i.fa.fa-twitter:hover {
+    color: #1275b1;
+    transform: scale(1.15);
+}
+i.fa.fa-youtube-play:hover {
+    color: #d23838;
+    transform: scale(1.15);
+}
+.card {
+    width: 100% !important;
+}
+.carousel.pointer-event {
+    margin: auto;
+}
+/* .btn-group button :hover .btn-group button i.fa.fa-facebook-official{
+    color: #0b55b6;
+}
+.btn-group button :hover .btn-group button i.fa.fa-twitter{
+    color: #2f68b8;
+}
+.btn-group button :hover .btn-group button i.fa.fa-youtube-play{
+    color: #ca0505;
+} */

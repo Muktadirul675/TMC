@@ -20,6 +20,92 @@ def is_problem_maker(user):
 
     return False
 
+def get_solved_problems(user):
+    problems = []
+    for p in models.ProblemSolved.objects.all():
+        if p.user == user:
+            problems.append(p)
+
+    return problems
+
+def get_ranking():
+    class Rank:
+        def __init__(self, name, score, solve, tried):
+            self.name = name
+            self.score = score
+            self.solve = solve
+            self.tried = tried
+            if tried == 0:
+                self.average = 0
+            else:
+                self.average = self.solve / self.tried
+            self.rank = 0
+
+        def __repr__(self):
+            return f"{self.score}"
+
+    ranks = []
+
+    def get_solved_problem_count(i):
+        solved = 0
+        for p in models.ProblemSolved.objects.all():
+            if p.user.username == i.user.username:
+                solved += 1
+
+        return solved
+
+    def get_tried_problem_count(i):
+        tried = models.ProblemTried.objects.filter(user=i.user).count()
+
+        return tried
+
+    def sort(L):
+        for i in range(len(L)):
+            for j in range(len(L)):
+                if L[i].score > L[j].score:
+                    L[i], L[j] = L[j], L[i] 
+        
+        return L[0]
+
+    for i in models.InRank.objects.all():
+        profile = models.Profile.objects.get(user=i.user)
+        rank = Rank(profile.user.first_name, profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
+        ranks.append(rank)
+
+    highest = sort(ranks)
+
+    group_rank = []
+    rank_highest = highest.score
+
+    def get_group(point):
+        group = []
+        for i in ranks:
+            if i.score == point:
+                group.append(i)
+        return group
+
+    for j in range(rank_highest+1):
+        group_rank.append(get_group(rank_highest-j))
+
+    reversed(group_rank)
+    print(group_rank)
+    final_rank = []
+
+    for i in group_rank:
+        for j in range(len(i)):
+            for k in range(len(i)):
+                if i[j].score < i[k].score:
+                    i[j], i[k] = i[k], i[j]
+
+    for i in group_rank:
+        for j in i:
+            final_rank.append(j)
+
+    for i in range(len(final_rank)):   
+        final_rank[i].rank = i+1
+
+    return final_rank
+
 def get_id(model_class,length:int):
     count = 0
     for i in model_class.objects.all():
@@ -35,7 +121,7 @@ def get_id(model_class,length:int):
 
     trailing += id
 
-    return f"#{trailing}"
+    return f"{trailing}"
 
 # Create your views here.
 
@@ -57,12 +143,25 @@ def problem_set(request):
 
     return render(request, 'problemset.html',cont)
 
-def topic_probelm_set(request, topic):
+def topic_probelm_set(request, topic, num):
     profile = None
     if request.user.is_authenticated:
         profile = models.Profile.objects.get(user=request.user)
-    problems = models.Problem.objects.filter(problem_cat=topic)
-    return render(request,"topic_problemset.html",{'profile':profile,'problems':problems,'topic':topic})
+    all_problems = models.Problem.objects.filter(problem_cat=topic)
+    solved_problems = get_solved_problems(request.user)
+    problems = []
+    for i in all_problems:
+        if i not in solved_problems:
+            problems.append(i)
+    problems = problems[num*20:num+21]
+    next_page = num + 1
+    prev_page = num - 1
+    all = list(models.Problem.objects.all().filter(problem_cat=topic))[num*20:num+21]
+    ranking = get_ranking()
+
+    cont = {'profile':profile,'problems':problems,'unsolveds_count':len(problems),'topic':topic,'next_page':next_page,'prev_page':prev_page,'solveds':solved_problems,'solveds_count':len(solved_problems),'all':all,'ranking':ranking}
+
+    return render(request,"topic_problemset.html",cont)
 
 @login_required(login_url="/user_login/")
 def submission(request,status,problem,tried):
@@ -76,7 +175,20 @@ def problem(request,pk):
     problem = models.Problem.objects.get(pk=pk)
     first_solve = "None"
     if not problem.first_solve == "None":
-        first_solve = User.objects.get(username=problem.first_solve).first_name
+        try:
+            first_solve = User.objects.get(username=problem.first_solve).first_name
+        except:
+            problem.first_solve = 'None'
+            problem.save()
+    more_problems = []
+
+    while True:
+        if len(more_problems) <= 5:
+            more_problem = random.choice(list(models.Problem.objects.all()))
+            if more_problem not in more_problems:
+                more_problems.append(more_problem)
+        else: 
+            break
 
     def already_solved():
         for p in models.ProblemSolved.objects.all():
@@ -117,7 +229,7 @@ def problem(request,pk):
                     push_to_rank.save()
                 if problem.tried.count() <= 1:
                     problem.first_solve = request.user.username
-                    print(request.user.username, " first solved it")
+                    print(request.user.username, "first solved it")
                     problem.save()
                 return submission(request,"Correct",problem,tried)
             return submission(request,"Wrong",problem,tried)
@@ -125,7 +237,7 @@ def problem(request,pk):
         if already_solved() or already_tried():
             return HttpResponse("Already Solved")
     
-    cont = {'problem':problem,'solved':already_solved(), 'first_solve_username': problem.first_solve ,'first_solve':first_solve}
+    cont = {'problem':problem,'solved':already_solved(), 'first_solve_username': problem.first_solve ,'first_solve':first_solve, 'more_problems':more_problems}
     
     return render(request, 'problem.html',cont)
 
@@ -151,7 +263,6 @@ def add_problem(request):
         return redirect(f"/topic_problems/{problem.problem_cat}/#problem-{problem.id}")
 
     return render(request, 'add_problem.html',cont)
-
 
 def profile(request):
     def get_solved_problem_count(topic=None):
@@ -243,7 +354,6 @@ def other_profile(request,username):
 
     return render(request,'other_profile.html',cont)
 
-
 def user_login(request):
     if request.user.is_authenticated:
         return redirect("tmc:home")
@@ -259,8 +369,8 @@ def user_login(request):
                     new_name += "0"
                 new_name += username
                 username = new_name
-            if username[0] != "#":
-                username = "#"+username 
+            if username[0] == "#":
+                username = username[1:] 
 
             user = authenticate(username=username,password=password)
 
@@ -279,80 +389,8 @@ def user_logout(request):
         return redirect("tmc:user_login")
 
 def leaderboard(request):
-    class Rank:
-        def __init__(self, name, score, solve, tried):
-            self.name = name
-            self.score = score
-            self.solve = solve
-            self.tried = tried
-            self.average = self.solve / self.tried
-            self.rank = 0
-
-        def __repr__(self):
-            return f"{self.score}"
-
-    ranks = []
-
-    def get_solved_problem_count(i):
-        solved = 0
-        for p in models.ProblemSolved.objects.all():
-            if p.user.username == i.user.username:
-                solved += 1
-
-        return solved
-
-    def get_tried_problem_count(i):
-        tried = models.ProblemTried.objects.filter(user=i.user).count()
-
-        return tried
-
-    def sort(L):
-        for i in range(len(L)):
-            for j in range(len(L)):
-                if L[i].score > L[j].score:
-                    L[i], L[j] = L[j], L[i] 
-        
-        return L[0]
-
-    for i in models.InRank.objects.all():
-        profile = models.Profile.objects.get(user=i.user)
-        rank = Rank(profile.user.username, profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
-        ranks.append(rank)
-
-    highest = sort(ranks)
-
-    group_rank = []
-    rank_highest = highest.score
-
-    def get_group(point):
-        group = []
-        for i in ranks:
-            if i.score == point:
-                group.append(i)
-        return group
-
-    for j in range(rank_highest+1):
-        print("P",j)
-        group_rank.append(get_group(rank_highest-j))
-
-    reversed(group_rank)
-    print(group_rank)
-    final_rank = []
-
-    for i in group_rank:
-        for j in range(len(i)):
-            for k in range(len(i)):
-                if i[j].score < i[k].score:
-                    i[j], i[k] = i[k], i[j]
-
-    for i in group_rank:
-        for j in i:
-            final_rank.append(j)
-
-    for i in range(len(final_rank)):   
-        final_rank[i].rank = i+1
-
-    cont = {'ranks':final_rank, 'highest':highest}
+    final_rank = get_ranking()
+    cont = {'ranks':final_rank,}
     return render(request, 'leaderboard.html',cont)
 
 def user_registration(request):
@@ -365,11 +403,23 @@ def user_registration(request):
 
             print(get_tmc_id())
 
+            problem = None
             email = request.POST['email']
             pswd = request.POST['password']
             f_name = request.POST['first_name']
             l_name = request.POST['last_name']
             username = get_tmc_id()
+
+            if len(f_name) == 0 or len(l_name) == 0:
+                messages.error(request, "First name or last name can't be empty")
+                problem = True
+            if len(pswd) < 6:
+                messages.error(request, 'The password must contain at least 6 characters')
+                problem = True
+
+            if problem:
+                return render(request, 'registration.html')
+
             new_user = User.objects.create_user(
                 username, email, pswd
             )
@@ -382,6 +432,8 @@ def user_registration(request):
             profile.point = 0
             profile.save()
 
+            messages.success(request, f'Registered successfully. Your TMC ID is {username}')
+
             user = authenticate(username=username,password=pswd)
 
             if user is not None:
@@ -391,3 +443,42 @@ def user_registration(request):
             
         return render(request, 'registration.html')
 
+def create_otp():
+    otp = ""
+    for i in range(6):
+        otp += str(random.randint(0,9))
+
+    return int(otp)
+
+def forgot_password(request,email,otp):
+    if request.user.is_authenticated:
+        return redirect("tmc:home")
+    else:
+        if request.method == "POST":
+            if email == 'given' and otp != 'given':
+                given_email = request.POST['email']
+                otp = create_otp()
+                print(otp)
+                cont = {'step':2,'otp':otp,'given_email':given_email}
+                return render(request, 'forgot_password.html',cont)
+            if email != 'given' and otp == 'given':
+                given_email = request.POST['given_email']
+                given_otp = request.POST['given_otp']
+                otp = request.POST['otp']
+                if given_otp == otp:
+                    cont = {'step':3,'given_email':given_email}
+                    return render(request, 'forgot_password.html',cont)
+            if email == 'given' and otp == 'given':
+                password = request.POST['password']
+                username = request.POST['username']
+                user = None
+                for u in User.objects.all():
+                    if u.username == username:
+                        user = u
+                        break
+                user.password = password
+                user.save()
+                login(request,user)
+                return redirect('tmc:home')
+        cont = {'step':1}
+        return render(request, 'forgot_password.html',cont)

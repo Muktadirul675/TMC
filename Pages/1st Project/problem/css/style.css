@@ -1,0 +1,212 @@
+:root {
+    --cus-box-shadow: 0px 0px 8px 1px #c8c8c8;
+    --btn-color: #0e2c30;
+}
+
+body {
+    background: #044e7d14;
+}
+/* Btn customize ================*/
+
+.btn-check:focus+.btn-outline-primary,
+.btn-outline-primary:focus {
+    box-shadow: none;
+}
+
+.btn-check:checked+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.btn-check:focus+.btn,
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn-check:checked+.btn-outline-primary:focus,
+.btn-check:active+.btn-outline-primary:focus,
+.btn-outline-primary:active:focus,
+.btn-outline-primary.active:focus,
+.btn-outline-primary.dropdown-toggle.show:focus {
+    box-shadow: none;
+}
+.btn-primary {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-primary:hover {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-outline-primary {
+    color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-outline-primary:hover {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+    color: #fff;
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+/* Btn customize ================*/
+
+
+.problem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-top: 1px solid #c8c3c3; */
+    padding: 10px 25px;
+    /* box-shadow: 0px 7px 4px #f3f3f3; */
+}
+.problem a {
+    text-decoration: none;
+}
+.probNameTag {
+    color: var(--btn-color);
+}
+
+.solveBtn button {
+    padding: 5px 20px;
+    border-color: #dcdcdc;
+}
+
+.tags span {
+    background: #00ff0017;
+    padding: 4px 5px;
+    border-radius: 3px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.tags {
+    margin-top: 5px;
+    margin-bottom: 9px;
+}
+a:hover {
+    color: unset;
+}
+span.easy {
+    background: #ebfffc;
+    color: #00947e;
+}
+
+span.medium {
+    background: #fffbeb;
+    color: #947600;
+}
+
+span.medium-hard {
+    background: #f6ecfe;
+    color: #b00fcc;
+}
+
+span.hard {
+    background: #feecf0;
+    color: #cc0f35;
+}
+
+span.tag1 {
+    background: #eef3fc;
+    color: #2160c4;
+}
+
+.problemContainer {
+    overflow-x: hidden;
+    /* margin-bottom: 10px; */
+    border-radius: 0px 0.25rem 0.25rem 0.25rem;
+}
+.problem:not(:first-child){
+    border-top: 1px solid #dcdcdc;
+}
+.tab {
+    overflow: hidden;
+    /* margin-top: 10px; */
+    display: flex;
+    width: max-content;
+    background: white;
+    border-radius: 0.25rem 0.25rem 0px 0px;
+}
+
+.tab div {
+    /* background: #00ff0059; */
+    /* padding: 13px 31px; */
+    /* border: 1px solid; */
+    border-bottom: 1px solid #dcdcdc;
+    cursor: pointer;
+}
+.active {
+    background: #eef3fc;
+}
+.user {
+    display: flex;
+    text-decoration: none;
+    color: var(--btn-color);
+    align-items: center;
+}
+
+.user img {
+    /* border: 1px solid #dadada; */
+    border-radius: 0.25rem;
+    width: 40px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    margin-right: 8px;
+}
+.user a {
+    text-decoration: none;
+}
+.user a p {
+    margin: 0;
+    color: #484848;
+    background: #5555550d;
+    padding: 1px 6px;
+    border-radius: 0.25rem;
+}
+td:not(:first-child){
+    text-align: center;
+}
+.topsolver td {
+    padding: 15px 5px;
+    vertical-align: middle;
+}
+
+.topsolver thead {
+    font-weight: 600;
+    font-size: 17px;
+}
+.fa-level-up-alt {
+    color: lime;
+}
+
+.fa-level-down-alt {
+    color: red;
+}
+.problemsControls {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Hovers */
+.problem:hover {
+    box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02)!important;
+}
+.tab div:hover {
+    background: #dcdcdc1a;
+}
+.user a p:hover {
+    background: #8080801f;
+}

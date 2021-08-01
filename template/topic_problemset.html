@@ -3,7 +3,7 @@
 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/problemset.css' %}">
+<link rel="stylesheet" href="{% static 'Problem/css/style.css' %}">
 <link rel="stylesheet" href="/css/all.css">
 <link rel="stylesheet" href="/css/fontawesome.min.css">
 <script src="https://kit.fontawesome.com/212844c17f.js" crossorigin="anonymous"></script>
@@ -12,11 +12,233 @@
 
 {% block body %}
 
+
+<section class="container">
+    <div class="row">
+        <div class="col-lg-7 my-1">
+
+            <div class="tab shadow">
+                <div onclick="tab(1)" class="px-3 py-2 px-sm-4 py-sm-3 allProb">All</div>
+                <div onclick="tab(2)" class="px-3 py-2 px-sm-4 py-sm-3 solvedProb">Solved ({{solveds_count}}) </div>
+                <div onclick="tab(3)" class="px-3 py-2 px-sm-4 py-sm-3 unsolvedProb">Unsolved ({{unsolveds_count}} of 20) </div>
+            </div>
+
+            <!-- Problems will be displayed in the following problemContainer div -->
+            <div class="problemContainer bg-white shadow"></div>
+            <div class="problemsControls mt-3">
+                {% if not prev_page < 0 %}
+                    <a href="{% url 'tmc:topic_problems' 'Math' prev_page %}" class="btn btn-primary prev m-1 shadow"><i class="fas fa-angle-double-left"></i>&nbsp; Prev</a>
+                {% endif %}
+                <a href="{% url 'tmc:topic_problems' 'Math' next_page %}"  class="btn btn-primary next m-1 shadow">Next &nbsp;<i class="fas fa-angle-double-right"></i></a>
+            </div>
+
+
+            <!-- these divs are just source of problem set -->
+            <div id="allProbs" hidden>
+                {% for p in all %}
+                <div class="problem">
+                    <a href="{% url 'tmc:problem' p.id %}" class="probNameTag">
+                        <h4>{{p.problem_name}}</h4>
+                        <div class="tags">
+                            <span class="tag1">TMC-{{p.id}}</span>
+                            {% for t in p.tags.all %}
+                                <span class="tag2 easy">{{t.name}}</span>
+                            {% endfor %}
+                        </div>
+                        Point: {{p.point}}
+                    </a>
+                    <div class="solveBtn">
+                        <a href="{% url 'tmc:problem' p.id %}"><button class="btn btn-outline-primary">Solve</button></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="solvedProbs" hidden>
+                {% for p in solveds %}
+                <div class="problem">
+                    <a href="{% url 'tmc:problem' p.id %}" class="probNameTag">
+                        <h4>{{p.problem_name}}</h4>
+                        <div class="tags">
+                            <span class="tag1">TMC-{{p.id}}</span>
+                            {% for t in p.tags.all %}
+                                <span class="tag2 easy">{{t.name}}</span>
+                            {% endfor %}
+                        </div>
+                        Point: {{p.point}}
+                    </a>
+                    <div class="solveBtn">
+                        <a href="{% url 'tmc:problem' p.id %}"><button class="btn btn-outline-primary">Solve</button></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="unsolvedProbs" hidden>
+                {% for p in problems %}
+                    <div class="problem">
+                        <a href="{% url 'tmc:problem' p.id %}" class="probNameTag">
+                            <h4>{{p.problem_name}}</h4>
+                            <div class="tags">
+                                <span class="tag1">TMC-{{p.id}}</span>
+                                {% for t in p.tags.all %}
+                                    <span class="tag2 easy">{{t.name}}</span>
+                                {% endfor %}
+                            </div>
+                            Point: {{p.point}}
+                        </a>
+                        <div class="solveBtn">
+                            <a href="{% url 'tmc:problem' p.id %}"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="col-lg-5 my-5">
+            <div class="solverContainer bg-white p-3 rounded shadow-sm">
+                <h4>Top Solvers</h4>
+                <div class="solverTable">
+                    <table class="table topsolver">
+                        <thead>
+                            <tr>
+                                <td>Solvers</td>
+                                <td>Score</td>
+                                <td>Rating</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in ranking %}
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <!-- <img src="images/user.jpg" alt=""> -->
+                                        <a href="#">
+                                            <p>{{r.name}}</p>
+                                        </a>
+                                    </td>
+                                    <td class="solvedProb">{{r.score}}</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> {{r.rank}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- <header>
+    <h1>Math Problems</h1>
+</header>
+<div class="container">
+    <div class="top-btns">
+        <div class="subject btn">
+            <span>
+                <input type="search" class="search" placeholder="search"><i class="search-i fas fa-search"></i>
+            </span>
+        </div>
+        <div class="extra-btn btn">
+        </div>
+    </div>
+    <div class="all-prblm">
+        <div class="separate">
+            <div class="left">
+                {% for p in problems %}
+                    <div class="problem-name easy">
+                        <div class="prblem-left">
+                            <a href="{% url 'tmc:problem' p.id %}"> {{p.problem_name}} </a>
+                            <div class="dif-id">
+                                <span class="prblm-id">TMCP-7467</span>
+                                <span id="easy">Easy </span> <span>Point: {{p.point}}</span> 
+                            </div>
+                        </div>
+                        <div class="tried">
+                            <span><span class="sol">{{p.solved.all.count}}</span> / <span class="tr">{{p.tried.all.count}}</span></span>
+                        </div>
+                    </div> <br>
+                {% endfor %}
+                {% if next_page != 1 %}
+                    <a href="{% url 'tmc:topic_problems' 'Math' prev_page %}" class="btn btn-primary" >Previous Page</a>
+                {% endif %}
+                <a href="{% url 'tmc:topic_problems' 'Math' next_page %}" class="btn btn-primary" >Next Page</a>
+            </div>
+            <div class="right">
+                <h1>Top Solvers</h1>
+                <div class="top-solver">
+                    <div class="solved-top"><a href=""><span>#1 </span> Jhon <span class="no1"></span></a><span
+                            class="solved">360</span></div>
+                    <div class="solved-top">
+                        <a href=""><span>#2</span> Rasan256</a><span class="solved">260</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#3</span> Harry</a><span class="solved">174</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#4</span> rafsan3877</a><span class="solved">388</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#5</span> rafsan3877</a><span class="solved">360</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#6</span> Jhon</a><span class="solved">858</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#7</span> Rasan256</a><span class="solved">360</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#8</span> Harry</a><span class="solved">193</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#9</span> rafsan3877</a><span class="solved">384</span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#1 </span> Jhon</a><span class="solved">360<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#2</span> Rasan256</a><span
+                            class="solved">260<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#3</span> Harry</a><span class="solved">174<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#4</span> rafsan3877</a><span
+                            class="solved">388<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#5</span> rafsan3877</a><span
+                            class="solved">360<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#6</span> Jhon</a><span class="solved">858<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#7</span> Rasan256</a><span
+                            class="solved">360<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#8</span> Harry</a><span class="solved">193<small>(solved)</small></span>
+                    </div>
+                    <div class="solved-top">
+                        <a href=""><span>#9</span> rafsan3877</a><span
+                            class="solved">384<small>(solved)</small></span>
+                    </div>
+                    <a type="button" class="btn btn-primary" href="{% url 'tmc:leaderboard' %}" >See All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container problems">
     <header>
         <h2> {{topic}} Problems</h2>
     </header> <br>
-    <!-- <div class="top-btns">
+    <div class="top-btns">
         <div class="subject btn">
             <button>Math</button>
             <button>Physics</button>
@@ -30,7 +252,7 @@
                 <option value="difficulty"><a>Difficulty</a></option>
             </select>
         </div>
-    </div> -->
+    </div>
     <div class="row mb-2">
         <div id="search" class="col-2">
                 <div>
@@ -75,7 +297,11 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div> -->
 
-    {% endblock %}
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'Problem/js/main.js' %}"></script>
+{% endblock %}

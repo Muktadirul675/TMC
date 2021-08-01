@@ -1,0 +1,16 @@
+#blog_header{
+    text-align: center;
+}
+
+li{
+    list-style: none;
+}
+
+#blog_dropdown{
+    background: cornsilk;
+    width: fit-content;
+    padding: 8px;
+    border-radius: 8px;
+    padding-left: 13px;
+    padding-right: 13px;
+}

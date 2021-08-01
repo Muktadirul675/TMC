@@ -1,0 +1,144 @@
+*{
+    margin : 0%;
+    padding: 0%;
+    text-decoration: none;
+}
+
+body{
+    background: #f7f7f7;
+}
+
+.status-table{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    width: 100%;
+
+}
+
+.prev-next{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.btn{
+    padding: 5px 10px;
+    width: 100px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid #aabaff;
+    color: #00146e;
+    position: relative;
+    cursor: pointer;
+}
+
+.btn::after{
+    z-index: -1;
+    content:'';
+    display: inline-block;
+   
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    background: #8c52ff;
+    transform: scaleX(0);
+    transition: .1s;
+    transform-origin: left;
+ 
+}
+
+.btn:hover::after{
+    transform: scaleX(1);
+}
+
+.btn:hover{
+    color: white;
+}
+table{
+
+    width: 80%;
+    border: .5px solid #afbcfc;
+    border-collapse: collapse;
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: 50;
+    box-shadow: 0px 1px 5px 0px rgb(223, 222, 222);
+    font-size: .9rem;
+    overflow: hidden;
+
+}
+
+thead{
+    box-shadow: 0px 2px 5px rgb(223, 223, 223);
+    text-transform: uppercase;
+    
+}
+
+th{
+    padding: 1rem 2rem;
+    /* letter-spacing: .1rem; */
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+td{
+    padding: 1rem;
+}
+
+table tr:nth-child(even){
+    background: rgb(224, 224, 255);
+} 
+
+.prs{
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    font-size: 30px;
+    border-bottom: 2px solid #e9e1fa;
+    color: rgb(109, 109, 109);
+}
+
+.prs small{
+    font-size: 15px;
+    color: #aabaff;
+}
+
+.not-available{
+    opacity: .5;
+}
+
+.not-available:hover::after{
+    transform: scaleX(0);
+}
+
+.not-available:hover{
+    color: #00146e;
+}
+
+.drp{
+    /* padding: 20px 200px; */
+    text-align: right;
+    width: 80%;
+    margin: auto;
+}
+
+.dropdown{
+    border: 1px solid #aabaff;
+    outline: none;
+    width: 150px;
+    padding: 6px 9px;
+    text-align: left;
+    color: #7985bb;
+    margin: 20px 8px;
+}

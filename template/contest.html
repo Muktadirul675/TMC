@@ -4,39 +4,101 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static 'css/contest.css' %}">
+<link rel="stylesheet" href="{% static 'contest/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'contest/css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'contest/css/details.css' %}">
+<link rel="stylesheet" href="{% static 'contest/css/detail.responsive.css' %}">
 
 {% endblock %}
 
 {% block body %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-9 col-xl-9 p-3">
-                {% if camp_contests_upcoming %}
-                <h3>Upcoming Camp Contests</h3> <br>
-                    {% for i in camp_contests_upcoming %}
-                        <div class="contest px-3">
-                            <h6><a href="">{{i.name}} on {{i.date}}</a> </h6> 
-                        </div> <hr>
-                    {% endfor %}
-                {% endif %}
+<header class="topMenu">
+    <ul>
+        <li id="tabBtn1" onclick="tab1()" class="clickedBtn">Featured <span>4</span></li>
+        <li id="tabBtn2" onclick="tab2()">Upcoming <span>4</span></li>
+        <li id="tabBtn4" onclick="tab4()">TMC Rounds <span>4</span></li>
+        <li id="tabBtn3" onclick="tab3()">All <span>8</span></li>
+    </ul>
+</header>
+<section id="tab1" class="leftMain">
+    <div class="contestBoxWrapper conts1">
+        <div class="contestBox">
+            <a href="pages/details.html">
+                <div class="contestImg"></div>
+            </a>
+            <div class="contestDetail">
+                <div class="tags">Tags</div>
+                <div class="tags">Tags</div>
+                <h2 class="cotestHead">Name Of The Contest</h2>
+                <p class="orName"><span>By</span> Organizer's Name Here</p>
             </div>
-            <div class="col-12 col-lg-3 col-xl-3 p-3">
-                <h3>Ongoing Contests</h3> <br>
-                {% if camp_contest_ongoing %}
-                    {% for i in camp_contest_ongoing %}
-                        <div class="contest px-1">
-                            <h6><a href="">{{i.name}}</a></h6>
-                        </div> <hr>
-                    {% endfor %}
-                {% else %}
-                    <h5>No ongoing contests now.</h5>
-                {% endif %}
+            <div class="boxFoot">
+                <p class="time">Contest Starts In 10 Days</p>
+                <div class="loginBtn b4">
+                    <a href="pages/details.html">
+                        <p>Click for details</p>
+                        <div class="loginInner i4"></div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
+</section>
+
+<section id="tab2" class="leftMain">
+    <div class="contestBoxWrapper conts2">
+        <div class="contestBox">
+            <a href="pages/details.html">
+                <div class="contestImg"></div>
+            </a>
+            <div class="contestDetail">
+                <div class="tags">Tags</div>
+                <div class="tags">Tags</div>
+                <h2 class="cotestHead">Name Of The Contest</h2>
+                <p class="orName"><span>By</span> Organizer's Name Here</p>
+            </div>
+            <div class="boxFoot">
+                <p class="time">Contest Starts In 10 Days</p>
+                <div class="loginBtn b4">
+                    <a href="pages/details.html">
+                        <p>Click for details</p>
+                        <div class="loginInner i4"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="tab3" class="leftMain">
+    <div class="contestBoxWrapper conts3">
+        <div class="contestBox">
+            <a href="pages/details.html">
+                <div class="contestImg"></div>
+            </a>
+            <div class="contestDetail">
+                <div class="tags">Tags</div>
+                <div class="tags">Tags</div>
+                <h2 class="cotestHead">Name Of The Contest</h2>
+                <p class="orName"><span>By</span> Organizer's Name Here</p>
+            </div>
+            <div class="boxFoot">
+                <p class="time">Contest Starts In 10 Days</p>
+                <div class="loginBtn b4">
+                    <a href="pages/details.html">
+                        <p>Click for details</p>
+                        <div class="loginInner i4"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
 
 {% block js %}
+<script src="{% static 'contest/js/main.js' %}"></script>
 {% endblock %}

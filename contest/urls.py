@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 app_name = 'contest'
 
 urlpatterns = [
-    
+    path('contest/',views.conests, name="contests"),
 ]
 
 

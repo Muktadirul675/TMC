@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Details</title>
+    <link rel="shortcut icon" href="images/tmc2fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/d708101dd1.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-lg-7 quesBody mt-3 bg-white p-4 border">
+                <div class="quesContainer">
+                    <div class="quesHead">
+                        <div class="quesName">
+                            <h4></h4>
+                            <p><b>Score: </b>10 Point</p>
+                        </div>
+                        <div class="lang shadow-sm">
+                            <p><i class="fas fa-language"></i> <span>English</span></p>
+                            <div class="langset shadow">
+                                <ul>
+                                    <li id="optLang" onclick="changeLang()">Bangla</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quesTxt">
+                    </div>
+                    <div class="quesTags mt-4">
+                        <span>Geometry</span><span>Basic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5 submitPart p-0">
+                <div class="statistics m-md-3 bg-white p-4 border">
+                    <h4 class="py-2 ms-lg-2">Statistics</h4>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Tried</td>
+                                <td>1010</td>
+                            </tr>
+                            <tr>
+                                <td>Solved</td>
+                                <td>1010</td>
+                            </tr>
+                            <tr>
+                                <td>First Solved</td>
+                                <td><a href="#">Rafsan Ratul</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="submitSec mt-3 mb-3 m-md-3">
+                    <div class="submitInp">
+                        <form action="http://127.0.0.1:5500/problem_details/index.html" autocomplete="off">
+                            <input type="number" name="" id="" placeholder="Your Answer" required>
+                            <input type="submit" value="" id="ansSubmit" hidden>
+                            <label for="ansSubmit"><i class="fas fa-paper-plane"></i>Submit</label>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="loginSec my-2">
+                    <a href="#">
+                        <i class="fas fa-sign-in-alt"></i><span>Log in to submit</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row similarQues">
+            <div class="col-lg-7 p-0 simQuesCon mt-3">
+                <h4 class="px-0 py-2 ms-2 ms-md-0 mb-1 mb-md-2">Similar Problems</h4>
+                <div class="row">
+                    <div class="col-md-4 simQuesConBox">
+                        <a href="#">
+                            <div class="simQuesBox border bg-white p-4 m-2 ms-md-0">Ques Name Here</div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 simQuesConBox">
+                        <a href="#">
+                            <div class="simQuesBox border bg-white p-4 m-2">Ques Name Here</div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 simQuesConBox">
+                        <a href="#">
+                            <div class="simQuesBox border bg-white p-4 m-2 me-md-0">Ques Name Here</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

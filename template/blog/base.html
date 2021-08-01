@@ -1,0 +1,65 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'blog/css/base.css' %}">
+
+{% block blogCss %}
+{% endblock %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10 p-3">
+            <li class="dropdown" id="blog_dropdown">
+                <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"> Blog
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="">Articles</li>
+                    <li><a class="dropdown-item" href="#">Tutorials</a></li>
+                    <!-- <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="#">Leaderboard</a></li> -->
+                </ul>
+            </li>
+        </div>
+        <div class="col-2 my-auto">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <div id="articles">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for b in blogs %}
+                    <div class="col">
+                        <div class="card">
+                            <img src="{{b.banner.url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{b.name}}</h5>
+                                <p class="card-text">
+                                    {{b.added_by}} <br> {{b.update}} <br> <a href="">See This Article</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'blog/js/base.js' %}"></script>
+{% endblock %}

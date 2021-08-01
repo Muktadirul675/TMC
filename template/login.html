@@ -27,7 +27,7 @@
                         <input type="password" class="form-control" id="password" name="password" value="">
                     </div> <br>
                     <input type="submit" value="Login" class="btn btn-primary"> <br> <br>
-                    <a href="">Forgot Password?</a> <br> <a href="">Register</a>
+                    <a href="{% url 'tmc:forgot_password' 'none' 'none' %}">Forgot Password?</a> <br> <a href="{% url 'tmc:user_registration' %}">Register</a>
                 </form>
             </div>    
         </div>

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'camp',
     'contest',
+    'blog',
 ]
 
 # CKEDITOR_CONFIGS = {

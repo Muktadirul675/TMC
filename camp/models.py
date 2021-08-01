@@ -10,8 +10,8 @@ class Camp(models.Model):
     date = models.CharField(max_length=1000)
     camp_topic = models.CharField(max_length=1000)
     description = RichTextField()
-    banner = models.ImageField(upload_to="banners/")
-    camp_logo = models.ImageField(upload_to="logos/")
+    banner = models.ImageField(upload_to="camp/banners/")
+    camp_logo = models.ImageField(upload_to="camp/logos/")
     paid = models.CharField(max_length=20, choices=[
         ("Paid","Paid"),
         ("Free","Free"),
@@ -67,7 +67,7 @@ class CampTrainer(models.Model):
     camp = models.ForeignKey(Camp, related_name="trainers", on_delete=models.CASCADE)
     instituion = models.CharField(max_length=1000)
     work = models.CharField(max_length=1000)
-    image = models.ImageField(upload_to="camp_trainers/",default="/user.png")
+    image = models.ImageField(upload_to="camp/camp_trainers/",default="/user.png")
     chief = models.BooleanField()
 
     def __str__(self):
@@ -75,7 +75,7 @@ class CampTrainer(models.Model):
 
 class CampOrganizer(models.Model):
     name = models.CharField(max_length=1000)
-    image = models.ImageField(upload_to="camp_organizer/",default="/user.png")
+    image = models.ImageField(upload_to="camp/camp_organizer/",default="/user.png")
     camp = models.ForeignKey(Camp,related_name="organizers",on_delete=models.CASCADE)
 
     def __str__(self):

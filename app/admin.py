@@ -1,15 +1,15 @@
 from django.contrib import admin
-from . import models
+from .models import *
 
 # Register your models here.
 admin.site.register(
     (
-        models.Problem,
-        models.ProblemSolved,
-        models.ProblemTried,
-        models.Profile,
-        models.Badge,
-        models.ProblemTag,
-        models.InRank,
+        Problem,
+        ProblemSolved,
+        ProblemTried,
+        Profile,
+        Badge,
+        ProblemTag,
+        InRank,
     )
 )

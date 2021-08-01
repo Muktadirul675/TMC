@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problems</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/d708101dd1.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-7 my-1">
+
+                <div class="tab shadow">
+                    <div onclick="tab(1)" class="px-3 py-2 px-sm-4 py-sm-3 allProb">All</div>
+                    <div onclick="tab(2)" class="px-3 py-2 px-sm-4 py-sm-3 solvedProb">Solved</div>
+                    <div onclick="tab(3)" class="px-3 py-2 px-sm-4 py-sm-3 unsolvedProb">Unsolved</div>
+                </div>
+
+                <!-- Problems will be displayed in the following problemContainer div -->
+                <div class="problemContainer bg-white shadow"></div>
+                <div class="problemsControls mt-3">
+                    <div class="btn btn-primary prev m-1 shadow"><i class="fas fa-angle-double-left"></i>&nbsp; Prev</div>
+                    <div class="btn btn-primary next m-1 shadow">Next &nbsp;<i class="fas fa-angle-double-right"></i></div>
+                </div>
+
+
+                <!-- these divs are just source of problem set -->
+                <div id="allProbs" hidden>
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="solvedProbs" hidden>
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="unsolvedProbs" hidden>
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+
+                    <div class="problem">
+                        <a href="#" class="probNameTag">
+                            <h4>Problem Name</h4>
+                            <div class="tags">
+                                <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                            </div>
+                        </a>
+                        <div class="solveBtn">
+                            <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 my-5">
+                <div class="solverContainer bg-white p-3 rounded shadow-sm">
+                    <h4>Top Solvers</h4>
+                    <div class="solverTable">
+                        <table class="table topsolver">
+                            <thead>
+                                <tr>
+                                    <td>Solvers</td>
+                                    <td>Problems</td>
+                                    <td>Rating</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-down-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-down-alt"></i> 300</td>
+                                </tr>
+                                <tr class="singleSolver">
+                                    <td class="user">
+                                        <img src="images/user.jpg" alt="">
+                                        <a href="#"><p>Rafsan Ratul</p></a>
+                                    </td>
+                                    <td class="solvedProb">30</td>
+                                    <td class="rating"><i class="fas fa-level-up-alt"></i> 300</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
