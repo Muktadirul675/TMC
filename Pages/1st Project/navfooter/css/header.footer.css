@@ -1,3 +1,74 @@
+:root {
+    --cus-box-shadow: 0px 0px 8px 1px #c8c8c8;
+    --btn-color: #0e2c30;
+}
+
+body {
+    background: #044e7d14;
+    /* background: #7684921f; */
+    /* background: #3a485614; */
+    /* background: #E6F4F1; */
+    /* background: #1d547c14; */
+}
+
+.header {
+    box-shadow: var(--cus-box-shadow);
+}
+/* Btn customize */
+.btn-check:focus+.btn-outline-primary,
+.btn-outline-primary:focus {
+    box-shadow: none;
+}
+
+.btn-check:checked+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.btn-check:focus+.btn,
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn-check:checked+.btn-outline-primary:focus,
+.btn-check:active+.btn-outline-primary:focus,
+.btn-outline-primary:active:focus,
+.btn-outline-primary.active:focus,
+.btn-outline-primary.dropdown-toggle.show:focus {
+    box-shadow: none;
+}
+.btn-primary {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-primary:hover {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-outline-primary {
+    color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-outline-primary:hover {
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+    color: #fff;
+    background-color: var(--btn-color);
+    border-color: var(--btn-color);
+}
+/* Btn customize */
+
 nav.navBar {
     display: flex;
     justify-content: space-between;
@@ -18,7 +89,7 @@ nav.navBar {
 }
 
 .navMenuCon ul li {
-    transition: 0.1s;
+    transition: 0.2s;
     cursor: pointer;
     color: #000000;
     font-size: 18px;
@@ -60,7 +131,7 @@ ul.subMenuLink {
 }
 
 .navMenuCon {
-    background: #f8f8f8;
+    background: #f3f3f3;
     padding: 3px;
     border-radius: 9px;
 }
@@ -230,7 +301,7 @@ ul.footSubMenu span {
 }
 
 .sideSubMenu li {
-    background: #b7cced30;
+    background: #f3f3f3;
 }
 
 .sideSubMenu {

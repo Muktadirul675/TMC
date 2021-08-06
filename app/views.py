@@ -127,9 +127,12 @@ def get_id(model_class,length:int):
 
 def home(request):
     profile = None
+    problems = []
+    for i in range(3):
+        problems.append(random.choice(list(models.Problem.objects.all())))
     if request.user.is_authenticated:
         profile = models.Profile.objects.get(user=request.user)
-    return render(request, 'home.html',{'profile':profile})
+    return render(request, 'home.html',{'profile':profile,'problems':problems})
 
 def about(request):
     return render(request,'about.html') 
@@ -227,9 +230,8 @@ def problem(request,pk):
                     push_to_rank = models.InRank()
                     push_to_rank.user = request.user 
                     push_to_rank.save()
-                if problem.tried.count() <= 1:
+                if problem.first_solve == 'None':
                     problem.first_solve = request.user.username
-                    print(request.user.username, "first solved it")
                     problem.save()
                 return submission(request,"Correct",problem,tried)
             return submission(request,"Wrong",problem,tried)
@@ -482,3 +484,6 @@ def forgot_password(request,email,otp):
                 return redirect('tmc:home')
         cont = {'step':1}
         return render(request, 'forgot_password.html',cont)
+
+
+

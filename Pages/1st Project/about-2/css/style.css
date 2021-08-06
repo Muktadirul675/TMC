@@ -1,0 +1,142 @@
+/* fb-#1877f2 */
+/* twit-#1da1f2 */
+/* linkdein-#3a82e4 */
+/* youtube-#ff0000 */
+
+body {
+    background: #044e7d14;
+}
+.carousel-indicators [data-bs-target] {
+    background-color: #0e2c30;
+}
+img.card-img-top {
+    width: 77%;
+    margin: auto;
+    /* border: 1px solid; */
+}
+i.fa.fa-facebook-official {
+    color: #1877f2;
+}
+
+i.fa.fa-twitter {
+    color: #1da1f2;
+}
+
+i.fa.fa-youtube-play {
+    color: #ff0000;
+}
+
+.socialIcons i {
+    padding: 4px;
+    transition: 0.3s;
+}
+i.fa.fa-facebook-official:hover {
+    color: #1257af;
+    transform: scale(1.1);
+}
+i.fa.fa-twitter:hover {
+    color: #1275b1;
+    transform: scale(1.1);
+}
+i.fa.fa-youtube-play:hover {
+    color: #d23838;
+    transform: scale(1.1);
+}
+.card {
+    width: 100% !important;
+}
+.carousel.pointer-event {
+    margin: auto;
+}
+
+.presidentSec {
+    overflow: hidden;
+}
+.presidentImg{
+    /* aspect-ratio: 1 / 1; */
+}
+
+.presidentImg img{
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+.presidentTxt h4 {
+    text-align: center;
+    font-size: 35px;
+    margin: 15px auto;
+    border-bottom: 3px solid orangered;
+    width: max-content;
+}
+
+.presidentTxt h4 span {
+    color: orangered;
+    border-bottom: -6px solid orangered;
+}
+
+.presDetails p {
+    font-size: 17px;
+    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 7px;
+}
+
+.presDetails h3 {
+    color: #383838;
+    margin-left: 10px;
+}
+
+.presDetails {
+    /* text-align: center; */
+    border-left: 4px solid gray;
+    width: 88%;
+    /* margin: auto; */
+    margin-top: 6%;
+    padding: 0.5px 0px;
+}
+
+.presSocial {
+    /* width: 20%; */
+    /* margin: auto; */
+    margin-top: 8%;
+    /* display: flex; */
+    /* justify-content: space-between; */
+}
+
+.presSocial i {
+    font-size: 30px !important;
+    transition: 0.2s;
+    margin-right: 10px;
+}
+/* .btn-group button :hover .btn-group button i.fa.fa-facebook-official{
+    color: #0b55b6;
+}
+.btn-group button :hover .btn-group button i.fa.fa-twitter{
+    color: #2f68b8;
+}
+.btn-group button :hover .btn-group button i.fa.fa-youtube-play{
+    color: #ca0505;
+} */
+
+@media (max-width: 992px){
+    .presidentTxt h4 {
+        font-size: 25px;
+    }
+    
+    .presDetails h3 {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+    
+    .presDetails p {
+        font-size: 13px;
+    }
+    
+    .presDetails {
+        border-left: 3px solid gray;
+    }
+    
+    .presSocial i {
+        font-size: 23px !important;
+    }
+}

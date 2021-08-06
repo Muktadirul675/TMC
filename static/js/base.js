@@ -21,6 +21,16 @@ $(function (){
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-$("table").togleClass("table table-striped table-bordered table-hover");
+$("table").toggleClass("table table-striped table-bordered table-hover");
+// code for side nav bar
+
+$(".sideTrgr").click(function(){
+    $(".sideNabBar").toggleClass("sideInactive");
+})
+
+$(".sideSubMenuHead").click(function(){
+    $(".sideSubMenu").slideToggle(300);
+    $("#sideDownArrow").toggleClass("rotate");
+})
 
 
