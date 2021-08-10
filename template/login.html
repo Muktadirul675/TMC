@@ -14,6 +14,15 @@
             </div>
         </div>
         <div class="row justify-content-center align-items-center" >
+            <div class="row justify-content-center ">
+                <div class="col-10 col-lg-5 col-xl-5 p-0">
+                    {% for m in messages %}
+                        <div class="alert alert-danger">
+                            {{m}}
+                        </div>  
+                    {% endfor %}        
+                </div>
+            </div>
             <div id="login" class="col-10 col-lg-5 col-xl-5 p-0">
                 <h5>Login To TMC</h5>
                 <form class="m-5" method="POST">
@@ -27,7 +36,7 @@
                         <input type="password" class="form-control" id="password" name="password" value="">
                     </div> <br>
                     <input type="submit" value="Login" class="btn btn-primary"> <br> <br>
-                    <a href="{% url 'tmc:forgot_password' 'none' 'none' %}">Forgot Password?</a> <br> <a href="{% url 'tmc:user_registration' %}">Register</a>
+                    <a href="{% url 'tmc:forgot_password' 'none' 'none' %}">Forgot Password?</a> <br> <a href="{% url 'tmc:user_registration' %}">Don't have a account? Register</a>
                 </form>
             </div>    
         </div>

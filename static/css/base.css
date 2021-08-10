@@ -3,14 +3,6 @@
     --btn-color: #0e2c30;
 }
 
-body {
-    background: #044e7d14;
-    /* background: #7684921f; */
-    /* background: #3a485614; */
-    /* background: #E6F4F1; */
-    /* background: #1d547c14; */
-}
-
 a{text-decoration: none;}
 
 .header {
@@ -328,3 +320,16 @@ ul.footSubMenu span {
 .footer li:hover {
     color: white;
 }
+
+.welcome .welcome_name{
+    color: var(--bs-blue);
+}
+
+.logout{
+    color: var(--bs-red);
+}
+
+.login{
+    color: var(--bs-blue);
+}
+

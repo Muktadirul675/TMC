@@ -58,14 +58,14 @@
                 {% for p in solveds %}
                 <div class="problem">
                     <a href="{% url 'tmc:problem' p.id %}" class="probNameTag">
-                        <h4>{{p.problem_name}}</h4>
+                        <h4>{{p.problem.problem_name}}</h4>
                         <div class="tags">
-                            <span class="tag1">TMC-{{p.id}}</span>
+                            <span class="tag1">TMC-{{p.problem.id}}</span>
                             {% for t in p.tags.all %}
                                 <span class="tag2 easy">{{t.name}}</span>
                             {% endfor %}
                         </div>
-                        Point: {{p.point}}
+                        Point: {{p.problem.point}}
                     </a>
                     <div class="solveBtn">
                         <a href="{% url 'tmc:problem' p.id %}"><button class="btn btn-outline-primary">Solve</button></a>

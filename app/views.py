@@ -9,7 +9,7 @@ from . import models
 from . import forms
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
-import random
+import random, time
 
 # External Functions
 
@@ -174,7 +174,9 @@ def submission(request,status,problem,tried):
         'submission':tried,
     })
 
+
 def problem(request,pk):
+    start_time  = time.time()
     problem = models.Problem.objects.get(pk=pk)
     first_solve = "None"
     if not problem.first_solve == "None":
@@ -183,15 +185,28 @@ def problem(request,pk):
         except:
             problem.first_solve = 'None'
             problem.save()
-    more_problems = []
 
-    while True:
-        if len(more_problems) <= 5:
-            more_problem = random.choice(list(models.Problem.objects.all()))
-            if more_problem not in more_problems:
-                more_problems.append(more_problem)
-        else: 
+    more_problems = []
+    all_problems = models.Problem.objects.all()
+    total_problems = len(list(models.Problem.objects.all()))
+    attempts = 0
+
+    while len(more_problems) <= 5:
+        attempts += 1
+        more_problem = random.choice(list(all_problems))
+        if more_problem not in more_problems:
+            more_problems.append(more_problem)
+        if attempts == total_problems:
             break
+
+    # while True:
+    #     if len(more_problems) <= 5:
+    #         more_problem = random.choice(list(models.Problem.objects.all()))
+    #         if more_problem not in more_problems:
+    #             more_problems.append(more_problem)
+    #     else: 
+    #         break
+
 
     def already_solved():
         for p in models.ProblemSolved.objects.all():
@@ -240,7 +255,7 @@ def problem(request,pk):
             return HttpResponse("Already Solved")
     
     cont = {'problem':problem,'solved':already_solved(), 'first_solve_username': problem.first_solve ,'first_solve':first_solve, 'more_problems':more_problems}
-    
+    print(time.time() - start_time )
     return render(request, 'problem.html',cont)
 
 @login_required(login_url="/user_login/")
@@ -378,8 +393,11 @@ def user_login(request):
 
             if user is not None:
                 login(request,user)
+            else:
+                messages.error(request,'The given username or the password is incorrect. Try again, or click on \'Forgot Psssword\'')
+                return render(request,'login.html')
 
-            return redirect('tmc:home')
+            return redirect('tmc:profile')
         
         return render(request,'login.html')
 
@@ -459,6 +477,12 @@ def forgot_password(request,email,otp):
         if request.method == "POST":
             if email == 'given' and otp != 'given':
                 given_email = request.POST['email']
+                for i in User.objects.all():
+                    if i.email == given_email:
+                        break
+                else:
+                    messages.error(request,'Given email isn\'t valid')
+                    return render(request, 'forgot_password.html',{'step':1})
                 otp = create_otp()
                 print(otp)
                 cont = {'step':2,'otp':otp,'given_email':given_email}
@@ -472,12 +496,7 @@ def forgot_password(request,email,otp):
                     return render(request, 'forgot_password.html',cont)
             if email == 'given' and otp == 'given':
                 password = request.POST['password']
-                username = request.POST['username']
-                user = None
-                for u in User.objects.all():
-                    if u.username == username:
-                        user = u
-                        break
+                user = request.user
                 user.password = password
                 user.save()
                 login(request,user)
