@@ -8,24 +8,35 @@
 
 {% block body %}
 
+<div class="container">
+    <div class="row">
+        {% for m in messages %}
+        <div class="col-12 my-1">
+            <div class="alert alert-info">
+                {{m}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 <section>
     <div class="infoleft">
         <div class="infoleftWrapper">
             <div class="userinfo p-3 rounded shadow-sm">
-                <img src="images/tmc1.png" alt="" class="userImg">
-
                 <div class="cwrapper">
-                    <p class="userName">Abdullah</p>
-                    <div class="connect">
-                        <a href="#"><i class="fas fa-envelope"><span>Message</span></i></a>
+                    <h1 class=""><i class="fas fa-user "></i></h1> 
+                    <p class="userName">Abdullah <br> #{{user}} </p>
+                    <!-- <div class="connect">
+                        <a href="#"><i class="fas fa-envelope"><span>{{user}}</span></i></a>
                         <a href="#"><i class="fas fa-star"></i></a>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
             <div class="moreinfo p-3 rounded shadow-sm">
 
-                <table>
+                <!-- <table>
                     <tr class="solvingData">
                         <td id="contestNum">
                             <p class="value">20</p>
@@ -40,12 +51,11 @@
                             <p class="title">Submissions</p>
                         </td>
                     </tr>
-                </table>
+                </table> -->
 
                 <div class="addinfo">
-                    <div class="location"><i class="fas fa-map-marker-alt"></i>Somewhere in BD</div>
-                    <div class="joinedDate"><i class="fas fa-calendar-alt"></i>Joined on <span id="joindate">1 May,
-                            2020</span></div>
+                    <!-- <div class="location"><i class="fas fa-map-marker-alt"></i>Somewhere in BD</div> -->
+                    <div class="joinedDate"><i class="fas fa-calendar-alt"></i>Joined on <br><span id="joindate"> {{profile.time}}</span></div>
                 </div>
             </div>
         </div>
@@ -60,7 +70,7 @@
                 <li class="tabBtn4" onclick="opntab4()">Ratings</li>
             </ul>
         </div> -->
-        <div class="altTabMenu">
+        <!-- <div class="altTabMenu">
             <button id="selection">
                 <span id="selectionTxt"></span> <i class="fas fa-chevron-down"></i>
             </button>
@@ -70,36 +80,42 @@
                 <li class="tabBtn3" onclick="opntab3()">Following</li>
                 <li class="tabBtn4" onclick="opntab4()">Ratings</li>
             </ul>
-        </div>
+        </div> -->
         <div id="tab1" class="infomain">
             <div class="infomainWrapper">
                 <div class="ranks">
                     <a href="#">
                         <div class="rankDiv rounded shadow-sm shadow-sm">
-                            <h3 class="value"><span id="solvedProbsNum">100</span>/<span id="totProbsNum">2500</span>
+                            <h3 class="value"><span id="solvedProbsNum">{{solved}}</span>/<span id="totProbsNum">{{total_problems}}</span>
                             </h3>
                             <p class="title">Solved Problems</p>
                             <div class="rank">
-                                <p>Rank: <span id="solvedRank">10</span></p>
+                                
                             </div>
                             <i class="far fa-check-circle"></i>
                         </div>
                     </a>
                     <a href="#">
                         <div class="rankDiv rounded shadow-sm shadow-sm">
-                            <h3 id="ratingNum">1000</h3>
-                            <p class="title">Current Rating</p>
+                            {% if rank == 'none' %}
+                                <h3 class="ratingNum">No ranking!</h3>
+                                <p class="title">Score 15 for ranking</p>
+                            {% else %}
+                                <h3 id="ratingNum">1000</h3>
+                                <p class="title">Current Rating</p>
+                            {% endif %}
                             <div class="rank">
-                                <p>Rank: <span id="ratingRank">10</span></p>
+                                
                             </div>
                             <i class="fas fa-angle-double-up"></i>
                         </div>
-                    </a><a href="#">
+                    </a>
+                    <a href="#">
                         <div class="rankDiv rounded shadow-sm shadow-sm">
-                            <h3 id="contributionNum">200</h3>
-                            <p class="title">contribution Points</p>
+                            <h3 id="contributionNum">{{profile.point}}</h3>
+                            <p class="title">Points</p>
                             <div class="rank">
-                                <p>Rank: <span id="contributionRank">10</span></p>
+                                
                             </div>
                             <i class="fas fa-hands-helping"></i>
                         </div>
@@ -107,10 +123,19 @@
 
                 </div>
 
+                <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
+                    <h4>Submissions: {{problem_tried}} </h4>
+                    <h4>Problems Tried: {{problems_tried}}</h4>
+                    <h4>Problems Solved: {{solved}}</h4> <br>
+                    <h5>Progress: ({{progress}}%) </h5>
+                    <div style="height: 8px; background-color: rgb(225, 225, 225);" class="progress-bar rounded  w-100">
+                        <div style="width: {{progress}}%" class="progress bg-success"></div>
+                    </div>
+                </div>
 
                 <!-- progress section -->
 
-                <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
+                <!-- <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
                     <div class="mainDivheader">
                         <h3>Category-wise Progress</h3>
                     </div>
@@ -125,7 +150,7 @@
                                         <p><span class="combSolved">12</span>/<span class="combAll">30</span></p>
                                     </div>
                                     <div class="pregress">
-                                        <!-- this is controlled by js, just change the value of .combSolved and .combAll -->
+                                        
                                         <span class="progressBar"></span>
                                     </div>
                                 </div>
@@ -139,7 +164,7 @@
                                         <p><span class="combSolved">30</span>/<span class="combAll">300</span></p>
                                     </div>
                                     <div class="pregress">
-                                        <!-- this is controlled by js, just change the value of .combSolved and .combAll -->
+                                        
                                         <span class="progressBar"></span>
                                     </div>
                                 </div>
@@ -360,11 +385,11 @@
                         <i id="upArrow" class="fas fa-chevron-up"></i>
                     </div>
 
-                </div>
+                </div> -->
 
                 <!-- canvus section -->
 
-                <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
+                <!-- <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
                     <div class="mainDivheader">
                         <h3>Rating History</h3>
                     </div>
@@ -383,7 +408,7 @@
 
                 </div>
 
-                <!-- recent works section -->
+                recent works section
 
                 <div class="wrapper p-3 p-lg-4 rounded shadow-sm">
                     <div class="activitiesContainer">
@@ -539,14 +564,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 </section>
 
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/profile.js' %}">
-        
-    </script>
+<script src="{% static 'js/profile.js' %}">
+
+</script>
 {% endblock %}

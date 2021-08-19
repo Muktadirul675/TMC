@@ -1,0 +1,100 @@
+
+::-webkit-scrollbar{
+    background: transparent;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: rgb(155, 155, 155);
+}
+
+.admin_panel_navs ul{
+    padding: 0;
+}
+
+.admin_panel_navs li{
+    list-style: none;
+}
+
+.sidebar{
+    background: rgb(240, 240, 240);
+    height: calc(100vh - 9.5vh);
+}
+
+
+.admin_panel_content{
+    height: calc(100vh - 9.5vh);
+    overflow-y: scroll;
+}
+
+.admin_panel_navs li{
+    padding: 10px;
+}
+
+.admin_panel_navs li a{
+    color: purple;
+    font-size: 17px;
+    transition: 0.2s all;
+}
+
+.admin_panel_navs li a:hover{
+    border-left: 2.5px solid purple;
+    padding-left: 13px;
+}
+
+.delete{
+    color: red;
+}
+
+.delete:hover{
+    color: rgb(177, 0, 0);
+}
+
+.statistics{
+    border-left: 4px solid grey;
+}
+
+.statistics > div{
+    position: relative;
+}
+
+.statistics > div::after{
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    height: 0.8px;
+    background: lightgrey;
+}
+.statistics > div:last-child::after{
+    content: "";
+    display: none;
+}
+
+
+.statistics .circle{
+    background: grey;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left:0;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+
+.statistices_content{
+    padding: 20px;
+}
+
+
+@media(max-width:999px){
+    .sidebar{
+        height: fit-content;
+    }
+    .admin_panel_content{
+        height: fit-content;
+        overflow-y: auto;
+    }
+}

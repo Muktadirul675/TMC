@@ -20,6 +20,10 @@ urlpatterns = [
     path('leaderboard/', views.leaderboard, name="leaderboard"),
     path('user_registration/', views.user_registration, name="user_registration"),
     path('forgot_password/<str:email>/<str:otp>/',views.forgot_password, name="forgot_password"),
+    path('admin_panel/', views.admin_panel_users, name='admin_panel_users'),
+    path('admin_panel/problems/', views.admin_panel_problems,name="admin_panel_problems"),
+    path('admin/problems/delete_problems/<int:pk>/', views.delete_problem, name="delete_problems"),
+    path('admin/problems/edit_problems/<int:pk>/', views.edit_problem, name="edit_problem"),
 ]
 
 

@@ -1,15 +1,13 @@
-from django.db.models.query import FlatValuesListIterable, RawQuerySet
-from django.forms.models import model_to_dict
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import TemplateView
 from . import models
 from . import forms
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 import random, time
+from .decorators import only_admin_can_access
 
 # External Functions
 
@@ -23,18 +21,19 @@ def is_problem_maker(user):
 def get_solved_problems(user):
     problems = []
     for p in models.ProblemSolved.objects.all():
-        if p.user == user:
-            problems.append(p)
+        if p.user == user and p.problem.status == "Public" :
+            problems.append(p.problem)
 
     return problems
 
 def get_ranking():
     class Rank:
-        def __init__(self, name, score, solve, tried):
+        def __init__(self, name, username, score, solve, tried):
             self.name = name
             self.score = score
             self.solve = solve
             self.tried = tried
+            self.username = username
             if tried == 0:
                 self.average = 0
             else:
@@ -69,7 +68,7 @@ def get_ranking():
 
     for i in models.InRank.objects.all():
         profile = models.Profile.objects.get(user=i.user)
-        rank = Rank(profile.user.first_name, profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
+        rank = Rank(profile.user.first_name, profile.user.username , profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
         ranks.append(rank)
 
     highest = sort(ranks)
@@ -123,6 +122,14 @@ def get_id(model_class,length:int):
 
     return f"{trailing}"
 
+def get_problems(category):
+    problems = []
+    for i in models.Problem.objects.all():
+        if i.status == "Public" and i.problem_cat == category :
+            problems.append(i)
+
+    return problems
+
 # Create your views here.
 
 def home(request):
@@ -150,19 +157,29 @@ def topic_probelm_set(request, topic, num):
     profile = None
     if request.user.is_authenticated:
         profile = models.Profile.objects.get(user=request.user)
-    all_problems = models.Problem.objects.filter(problem_cat=topic)
     solved_problems = get_solved_problems(request.user)
     problems = []
+    all_problems = get_problems(topic)[num*20:num+21]
     for i in all_problems:
         if i not in solved_problems:
             problems.append(i)
     problems = problems[num*20:num+21]
     next_page = num + 1
     prev_page = num - 1
-    all = list(models.Problem.objects.all().filter(problem_cat=topic))[num*20:num+21]
     ranking = get_ranking()
 
-    cont = {'profile':profile,'problems':problems,'unsolveds_count':len(problems),'topic':topic,'next_page':next_page,'prev_page':prev_page,'solveds':solved_problems,'solveds_count':len(solved_problems),'all':all,'ranking':ranking}
+    cont = {
+        'profile':profile,
+        'problems':problems,
+        'unsolveds_count':len(problems),
+        'topic':topic,
+        'next_page':next_page,
+        'prev_page':prev_page,
+        'solveds':solved_problems,
+        'solveds_count':len(solved_problems),
+        'all':all_problems,
+        'ranking':ranking
+        }
 
     return render(request,"topic_problemset.html",cont)
 
@@ -277,9 +294,34 @@ def add_problem(request):
             tag.problem = problem
             tag.save()
         
-        return redirect(f"/topic_problems/{problem.problem_cat}/#problem-{problem.id}")
+        return redirect(f"/admin_panel/problems/")
 
     return render(request, 'add_problem.html',cont)
+
+@only_admin_can_access
+def edit_problem(request, pk):
+
+    problem = models.Problem.objects.get(pk=pk)
+    form = forms.Problem(instance=problem)
+
+    cont = {'form':form}
+
+    if request.method == "POST":
+        form = forms.Problem(request.POST, instance=problem)
+        if form.is_valid():
+            form.save()
+            return redirect("/admin_panel/problems/")
+    return render(request, 'edit_problem.html', cont)
+
+def get_user_ranking(user):
+    ranks = get_ranking()
+    rank = "none"
+    for i in ranks:
+        if i.username == user.username:
+            rank = i.rank
+            break
+
+    return rank
 
 def profile(request):
     def get_solved_problem_count(topic=None):
@@ -289,6 +331,20 @@ def profile(request):
                 solved += 1
 
         return solved
+
+    def get_total_submissions_count():
+        tried = len(list(models.ProblemTried.objects.filter(user=request.user)))
+
+        return tried
+
+    def get_total_problem_tried_count():
+        problems = []
+        tried = list(models.ProblemTried.objects.filter(user=request.user))
+        for i in tried:
+            if i.problem not in problems:
+                problems.append(i.problem)
+
+        return len(problems)
 
     def get_math_solved_problem_count():
         solved = 0
@@ -350,18 +406,23 @@ def profile(request):
             return f'{((solved/problems) * 100):.2f}'
         except ZeroDivisionError: 
             return 0
+        
 
-    print(get_math_progress(),get_physics_progress())
+
+    rank = get_user_ranking(request.user)
 
     cont = {
         'profile':models.Profile.objects.get(user=request.user),
+        'problem_tried': get_total_submissions_count(),
         'progress':get_progress(),
+        'problems_tried': get_total_problem_tried_count(),
         'math_progress': get_math_progress(),
         'physics_progress': get_physics_progress(),
         'solved':get_solved_problem_count(),
         'math_solved': get_math_solved_problem_count(),
         'physics_solved': get_physics_solved_problem_count(),
         'total_problems':get_total_problems(),
+        'rank': rank,
         }
 
     return render(request,'profile.html',cont)
@@ -504,5 +565,78 @@ def forgot_password(request,email,otp):
         cont = {'step':1}
         return render(request, 'forgot_password.html',cont)
 
+@only_admin_can_access
+def admin_panel_users(request):
 
+    users = list(User.objects.all())
 
+    cont = {'users':users}
+    return render(request, 'admin_panel_users.html', cont)
+
+def get_most_point_earned_by():
+    user = None
+    highest = 0
+    for i in models.ProblemSolved.objects.all():
+        profile = models.Profile.objects.get(user=i.user)
+        if profile.point > highest:
+            user = i.user
+            highest = profile.point
+    return (user, highest)
+
+def get_most_problems_solved_by():
+    user = None
+    highest = 0
+    for i in User.objects.all():
+        count = len(list(models.ProblemSolved.objects.filter(user=i)))
+        if count > highest:
+            user = i
+            highest = len(list(models.ProblemSolved.objects.filter(user=i)))
+
+    point = models.Profile.objects.get(user=user).point
+
+    return (user, highest,point)
+
+def get_most_solved_problem():
+    highest = 0
+    problem = None
+    for i in models.Problem.objects.all():
+        if len(list(models.ProblemSolved.objects.filter(problem=i))) > highest:
+            problem = i
+            highest = len(list(models.ProblemSolved.objects.filter(problem=i)))
+
+    return (problem, highest)
+
+@only_admin_can_access
+def admin_panel_problems(request):
+    problems = list(models.Problem.objects.all())
+    hidden_problems = []
+    public_problems = []
+    for i in models.Problem.objects.all():
+        if i.status == "Hidden":
+            hidden_problems.append(i)
+        else:
+            public_problems.append(i)
+    most_problems_solved_by = get_most_problems_solved_by()
+    most_solved_problem = get_most_solved_problem()
+    most_point_earned = get_most_point_earned_by()
+    cont = {
+        'problems':problems,
+        'total_problems': len(problems),
+        'hidden_problems_count': len(hidden_problems),
+        'public_problems_count': len(public_problems),
+        'most_problems_solved_by':most_problems_solved_by[0],
+        'most_problems_solved_by_count':most_problems_solved_by[1],
+        'most_problems_solved_by_point': most_problems_solved_by[2],
+        'most_solved_problem': most_solved_problem[0],
+        'most_solved_problem_count': most_solved_problem[1],
+        'most_point_earned': most_point_earned[0],
+        'most_point_earned_point': most_point_earned[1]
+     }
+    return render(request, 'admin_panel_problems.html', cont)
+
+@only_admin_can_access
+def delete_problem(request,pk):
+    problem = models.Problem.objects.get(pk=pk)
+    problem.delete()
+
+    return redirect("/admin_panel/problems/")

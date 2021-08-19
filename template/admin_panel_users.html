@@ -1,0 +1,29 @@
+{% extends './admin_panel.html' %}
+
+
+{% block admin %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9">
+                <h2>Users</h2>
+                <hr>
+                <ol>
+                    {% for i in users %}
+                    <li>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-8">
+                                    <a href="">{{i.first_name}} {{i.last_name}} [{{i.username}}]</a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="delete" href="">Delete User</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ol>            
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -28,6 +28,10 @@ class Problem(models.Model):
         ("Physics","Physics")
     ])
     point = models.IntegerField(default=0)
+    status = models.CharField(max_length=20, choices=[
+        ("Public", "Public"),
+        ("Hidden", "Hidden")
+    ])
 
     def __str__(self):
         return f"{self.problem_name}"

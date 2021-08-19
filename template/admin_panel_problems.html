@@ -1,0 +1,71 @@
+{% extends './admin_panel.html' %}
+{% load static %}
+
+{% block admin %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-8 col-xl-8">
+            <h3>Problems</h3> 
+            <h5> <a href="{% url 'tmc:add_problem' %}"><i class="fas fa-plus"></i> Add Problem </i></a>  </h5><br>
+            <ol style="padding: 0;">
+                {% for p in problems %}
+                <li style="list-style: none;padding:0;" class="container-fluid p-1">
+                    <div class="row">
+                        <div class="col-2">
+                            # {{p.id}}
+                        </div>
+                        <div class="col-5">
+                            <a href="{% url 'tmc:problem' p.id %}">{{p.problem_name}}</a> 
+                        </div>
+                        <div class="col-2">
+                            <a href="{% url 'tmc:edit_problem' p.id %}"><img width="20px" height="20px" src="{% static 'images/pencil.png' %}" alt="" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit" ></a>
+                        </div>
+                        <div class="col-1">
+                            <a class="delete" href="{% url 'tmc:delete_problems' p.id %}" data-bs-toggle="tooltip"  data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a> 
+                        </div>
+                        <div class="col-1">
+                            {% if p.status == "Hidden" %}
+                                <img width="25px" height="25px" src="{% static 'images/blind.png' %}" alt="" data-bs-toggle="tooltip"  data-bs-placement="top" title="This problem is hidden">
+                            {% endif %}
+                        </div>
+                    </div>
+                </li> <hr>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col-12 col-lg-4 col-xl-4 p-2">
+            <div class="statistics">
+                <div>
+                    <div class="statistices_content">
+                        <b>Total Problems: </b> {{total_problems}} <br>
+                        <b>Hidden Problems:</b> {{hidden_problems_count}} <br>
+                        <b>Public Problems:</b> {{public_problems_count}}
+                    </div>
+                </div>
+                <div>
+                    <div class="circle"></div>
+                    <div class="statistices_content">
+                        <b>Most Problem Solved By</b>  <br> {{most_problems_solved_by.first_name}}
+                        [{{most_problems_solved_by.username}}] <br>
+                        Problems Solved: {{most_problems_solved_by_count}}
+                    </div>
+                </div>
+                <div>
+                    <div class="circle"></div>
+                    <div class="statistices_content">
+                        <b>Most Point Earned By</b>  <br> {{most_point_earned.first_name}} <br>
+                        Point: {{most_point_earned_point}}
+                    </div>
+                </div>
+                <div>
+                    <div class="circle"></div>
+                    <div class="statistices_content">
+                        <b>Most Solved Problem</b>  <br> #{{most_solved_problem.id}} {{most_solved_problem.problem_name}} <br>
+                        Solved: {{most_solved_problem_count}} <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

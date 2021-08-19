@@ -66,6 +66,7 @@
       <img src="/static/images/cancel.png" alt=""> <br>
       <h5>That's was a wrong one. But <a href="{% url 'tmc:problem' submission.problem.id %}">try again!</a> </h5>
     {% endif %}
+    <h5> <a href="{% url 'tmc:topic_problems' 'Math' 0 %}">More Problems</a></h5>
     <!-- <button style="width: fit-content;color: white;" class="btn btn-primary" onclick="show_ans()">Your Answer</button> -->
   </div>
 </div>
