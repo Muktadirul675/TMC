@@ -142,7 +142,9 @@ def home(request):
     return render(request, 'home.html',{'profile':profile,'problems':problems})
 
 def about(request):
-    return render(request,'about.html') 
+    members = models.ClubMember.objects.all()
+    cont = {'members':members}
+    return render(request,'about.html',cont) 
 
 def problem_set(request):
     profile = None 
@@ -565,6 +567,8 @@ def forgot_password(request,email,otp):
         cont = {'step':1}
         return render(request, 'forgot_password.html',cont)
 
+# Admin Panel Views
+
 @only_admin_can_access
 def admin_panel_users(request):
 
@@ -640,3 +644,51 @@ def delete_problem(request,pk):
     problem.delete()
 
     return redirect("/admin_panel/problems/")
+
+@only_admin_can_access
+def admin_panel_club_members(request):
+    members = models.ClubMember.objects.all()
+    form = forms.ClubMember()
+
+    if request.method == "POST":
+        form = forms.ClubMember(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+
+    cont = {'members':members, 'form':form}
+
+    return render(request, 'admin_panel_club_members.html', cont)
+
+def is_admin(user):
+    for g in user.groups.all():
+        if g.name == "admin":
+            return True
+
+    return False
+
+def admin_login(request):
+    cont = {}
+
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            if is_admin(user):
+                login(request,user)
+                return redirect("/admin_panel/")
+            else:
+                messages.error(request,'The given credentials does not match to admin credentials!')
+                return redirect("/login_as_admin/")  
+        else:
+            messages.error(request,'The given username or the password is incorrect. Try again')
+            return redirect("/login_as_admin/")
+
+    return render(request, 'admin_login.html', cont)
+
+@only_admin_can_access
+def admin_panel_club_member_details(request, pk):
+    member = models.ClubMember.objects.get(pk=pk)
+    cont = {'member':member}
+
+    return render(request, 'admin_panel_club_member_details.html', cont)

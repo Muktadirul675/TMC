@@ -1,0 +1,44 @@
+{% extends "./admin_panel.html" %}
+{% load static %}
+
+{% block admin %}
+
+    <div class="admin_panel_club_members container-fluid p-2">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-8">
+                <h2>Club Members ({{members.count}}) </h2>
+                <hr>
+                <div class="row">
+                    <div class="col-5"> <b>Name</b> </div>
+                    <div class="col-4"> <b>Post</b> </div>
+                    <div class="col-2"> <b>Department</b></div>
+                </div> <br>
+                {% for m in members %}
+                <div class="row">
+                    <div class="col-5"> <a href="{% url 'tmc:admin_panel_club_member_details' m.id %}">{{m.name}}</a> </div>
+                    <div class="col-4">{{m.post}}</div>
+                    <div class="col-2">{{m.dept}}</div>
+                </div> <br>
+                {% endfor %}
+            </div>
+            <div class="col-12 col-xl-4 col-lg-4 p-1">
+                <h5>Add Club Member</h5>
+                <form action="" method="POST" enctype="multipart/form-data" class="form-group">
+                    {% csrf_token %}
+                    <!-- <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                    <label for="post">Post</label>
+                    <input type="text" name="post" id="post" class="form-control my-1">
+                    <label for="dept">Department</label>
+                    <input type="text" name="dept" id="dept" class="form-control mb-2">
+                    <label for="image">Image</label>
+                    <input type="file" name="image" id="image" class="form-control"> <br>
+                    <input type="submit" value="Add" class="btn btn-primary"> -->
+                    {{ form.as_p }}
+                    <input type="submit" value="Add" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

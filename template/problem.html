@@ -17,16 +17,18 @@
                         <h4>{{problem.problem_name}}</h4>
                         <p><b>Score: </b>{{problem.point}} Point</p>
                     </div>
-                    <div class="lang shadow-sm">
+                    <!-- <div class="lang shadow-sm">
                         <p><i class="fas fa-language"></i> <span>English</span></p>
                         <div class="langset shadow">
                             <ul>
                                 <li id="optLang" onclick="changeLang()">Bangla</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="quesTxt">
+                    {{problem.bangla|safe}}
+                    <hr>
                     {{problem.problem|safe}}
                 </div>
                 <div class="quesTags mt-4">

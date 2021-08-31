@@ -15,12 +15,16 @@
                     <p class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias mollitia, iste explicabo
                         eius corrupti repellat asperiores vero maiores fugiat debitis.</p>
                 </div>
+                {% if user.is_authenticated %}
+                <h5>Welcome, {{user.first_name}}</h5>
+                {% else %}
                 <div class="topBtns">
                     <a href="#"><button class="btn btn-primary px-4 me-3">Register</button></a>
                     <a href="#"><button class="btn btn-outline-primary border-2 px-4">Log In</button></a>
 
                     <!-- <button class="btn btn-outline-primary border-2 px-4">Log In</button> -->
                 </div>
+                {% endif %}
             </div>
             <div class="col-md-5 p-4 p-lg-5">
                 <div class="imgContain">
@@ -32,19 +36,24 @@
 
         <!-- 3 blocks -->
         <div class="row mb-4 justify-content-md-between flex-column flex-md-row">
-            {% for p in problems %}
-                <div class="col-lg-4 p-0 blockContainer">
-                    <div class="blockWrap bg-white rounded shadow-sm">
-                        <a href="#">
-                            <div class="blocks">
-                                <div class="blockTxt text-center">
-                                    <h2>{{p.problem_name}}</h2>
-                                </div>
+            <style>
+
+            </style>
+            <div class="container-fluid bg-white shadow-sm p-4">
+                <div class="col-12">
+                    <h3>Problems To Solve</h3> <br>
+                    {% for p in problems %}
+                        <div class="row shadow-sm mb-2 p-2">
+                            <div class="col-8">
+                                <h5>{{p.problem_name}}</h5> 
                             </div>
-                        </a>
-                    </div>
+                            <div class="col-4">
+                                <a class="btn btn-primary" href="{% url 'tmc:problem' p.id %}" >Solve</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
 
         <!-- Profile -->
@@ -107,7 +116,7 @@
         </div> -->
 
         <!-- Blog -->
-        <div class="row bg-white rounded p-4 pb-0 mb-3 blog">
+        <!-- <div class="row bg-white rounded p-4 pb-0 mb-3 blog">
             <div class="col-12">
                 <h3 class="mb-3 border-bottom py-2 border-3">Latest Blogs</h3>
                 <div class="row">
@@ -187,7 +196,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Contest -->
         <!-- <div class="row my-3">

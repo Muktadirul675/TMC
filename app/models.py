@@ -5,13 +5,14 @@ from django.contrib.auth import default_app_config
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-from django.forms.models import model_to_dict
+from django.forms.models import model_to_dict, modelform_factory
 
 # Create your models here.
 
 class Problem(models.Model):
     problem_name = models.CharField(max_length=500)
     problem = RichTextField()
+    bangla = RichTextField()
     time = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     answer = models.FloatField()
@@ -89,4 +90,13 @@ class Badge(models.Model):
 class InRank(models.Model):
     user = models.ForeignKey(User, related_name='inrank',on_delete=models.CASCADE)
 
+class ClubMember(models.Model):
+    name = models.CharField(max_length=20000)
+    dept = models.CharField(max_length=500)
+    post = models.CharField(max_length=500)
+    time = models.DateField(auto_now=True)
+    image = models.ImageField(upload_to="image/", default="/user.png")
+
+    def __str__(self):
+        return f"{self.name} {self.dept[0] + self.dept[1] + self.dept[2]}"
 

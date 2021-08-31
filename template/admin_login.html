@@ -1,0 +1,63 @@
+{% extends "./base.html" %}
+
+{% block css %}
+
+<style>
+    .container{
+        text-align: center;
+    }
+    #admin_login_box{
+        text-align: center;
+        border: 0.5px solid #5271ff;
+        border-radius: 5px;
+    }
+    #admin_login_text{
+        color: white;
+        background-color: #5271ff;
+        padding: 5px;
+    }
+    form{
+        text-align: left;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div id="admin_login" class="container p-3 justify-content-center align-items-center ">
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-xl-4 col-lg-4 justify-content-center align-items-center">
+            <img src="/static/images/tmc_logo.jpg" class="mb-1 rounded-circle img-thumbnail" alt="" width="80" height="80" id=""> <br>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center ">
+            <div class="col-10 col-lg-5 col-xl-5 p-0">
+                {% for m in messages %}
+                    <div class="alert alert-danger">
+                        {{m}}
+                    </div>  
+                {% endfor %}        
+            </div>
+        </div>
+        <div id="admin_login_box" class="col-12 col-xl-5 col-lg-5 p-0">
+            <h5 id="admin_login_text">
+                Admin Login
+            </h5>
+            <form action="" method="POST" class="m-5 form-group">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="mb-1 form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control"> <br>
+                <input type="submit" value="Login" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %} 

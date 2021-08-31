@@ -11,5 +11,6 @@ admin.site.register(
         Badge,
         ProblemTag,
         InRank,
+        ClubMember
     )
 )
