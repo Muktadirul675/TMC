@@ -328,10 +328,11 @@ def edit_problem(request, pk):
 def get_user_ranking(user):
     ranks = get_ranking()
     rank = "none"
-    for i in ranks:
-        if i.username == user.username:
-            rank = i.rank
-            break
+    if not ranks == None:
+        for i in ranks:
+            if i.username == user.username:
+                rank = i.rank
+                break
 
     return rank
 
