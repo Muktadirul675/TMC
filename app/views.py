@@ -467,7 +467,7 @@ def user_login(request):
             if user is not None:
                 login(request,user)
             else:
-                messages.error(request,'The given username or the password is incorrect. Try again, or click on \'Forgot Psssword\'')
+                messages.error(request,'The given username or the password is incorrect. Try again!')
                 return render(request,'login.html')
 
             return redirect('tmc:profile')

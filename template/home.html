@@ -19,8 +19,8 @@
                 <h5>Welcome, {{user.first_name}}</h5>
                 {% else %}
                 <div class="topBtns">
-                    <a href="#"><button class="btn btn-primary px-4 me-3">Register</button></a>
-                    <a href="#"><button class="btn btn-outline-primary border-2 px-4">Log In</button></a>
+                    <a href="{% url 'tmc:user_registration' %}"><button class="btn btn-primary px-4 me-3">Register</button></a>
+                    <a href="{% url 'tmc:user_login' %}"><button class="btn btn-outline-primary border-2 px-4">Log In</button></a>
 
                     <!-- <button class="btn btn-outline-primary border-2 px-4">Log In</button> -->
                 </div>
