@@ -17,8 +17,11 @@
                         <div class="col-5">
                             <a href="{% url 'tmc:problem' p.id %}">{{p.problem_name}}</a> 
                         </div>
-                        <div class="col-2">
+                        <div class="col-1">
                             <a href="{% url 'tmc:edit_problem' p.id %}"><img width="20px" height="20px" src="{% static 'images/pencil.png' %}" alt="" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit" ></a>
+                        </div>
+                        <div class="col-1">
+                            <a href="">D</a>
                         </div>
                         <div class="col-1">
                             <a class="delete" href="{% url 'tmc:delete_problems' p.id %}" data-bs-toggle="tooltip"  data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a> 

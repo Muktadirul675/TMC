@@ -27,83 +27,86 @@ def get_solved_problems(user):
     return problems
 
 def get_ranking():
-    class Rank:
-        def __init__(self, name, username, score, solve, tried):
-            self.name = name
-            self.score = score
-            self.solve = solve
-            self.tried = tried
-            self.username = username
-            if tried == 0:
-                self.average = 0
-            else:
-                self.average = self.solve / self.tried
-            self.rank = 0
+    if models.InRank.objects.all().count() == 0:
+        return None
+    else:
+        class Rank:
+            def __init__(self, name, username, score, solve, tried):
+                self.name = name
+                self.score = score
+                self.solve = solve
+                self.tried = tried
+                self.username = username
+                if tried == 0:
+                    self.average = 0
+                else:
+                    self.average = self.solve / self.tried
+                self.rank = 0
 
-        def __repr__(self):
-            return f"{self.score}"
+            def __repr__(self):
+                return f"{self.score}"
 
-    ranks = []
+        ranks = []
 
-    def get_solved_problem_count(i):
-        solved = 0
-        for p in models.ProblemSolved.objects.all():
-            if p.user.username == i.user.username:
-                solved += 1
+        def get_solved_problem_count(i):
+            solved = 0
+            for p in models.ProblemSolved.objects.all():
+                if p.user.username == i.user.username:
+                    solved += 1
 
-        return solved
+            return solved
 
-    def get_tried_problem_count(i):
-        tried = models.ProblemTried.objects.filter(user=i.user).count()
+        def get_tried_problem_count(i):
+            tried = models.ProblemTried.objects.filter(user=i.user).count()
 
-        return tried
+            return tried
 
-    def sort(L):
-        for i in range(len(L)):
-            for j in range(len(L)):
-                if L[i].score > L[j].score:
-                    L[i], L[j] = L[j], L[i] 
-        
-        return L[0]
+        def sort(L):
+            for i in range(len(L)):
+                for j in range(len(L)):
+                    if L[i].score > L[j].score:
+                        L[i], L[j] = L[j], L[i] 
+            
+            return L[0]
 
-    for i in models.InRank.objects.all():
-        profile = models.Profile.objects.get(user=i.user)
-        rank = Rank(profile.user.first_name, profile.user.username , profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
-        ranks.append(rank)
+        for i in models.InRank.objects.all():
+            profile = models.Profile.objects.get(user=i.user)
+            rank = Rank(profile.user.first_name, profile.user.username , profile.point, get_solved_problem_count(i),get_tried_problem_count(i)) 
+            ranks.append(rank)
 
-    highest = sort(ranks)
+        highest = sort(ranks)
 
-    group_rank = []
-    rank_highest = highest.score
+        group_rank = []
+        rank_highest = highest.score
 
-    def get_group(point):
-        group = []
-        for i in ranks:
-            if i.score == point:
-                group.append(i)
-        return group
+        def get_group(point):
+            group = []
+            for i in ranks:
+                if i.score == point:
+                    group.append(i)
+            return group
 
-    for j in range(rank_highest+1):
-        group_rank.append(get_group(rank_highest-j))
+        for j in range(rank_highest+1):
+            group_rank.append(get_group(rank_highest-j))
 
-    reversed(group_rank)
-    print(group_rank)
-    final_rank = []
+        reversed(group_rank)
+        print(group_rank)
+        final_rank = []
 
-    for i in group_rank:
-        for j in range(len(i)):
-            for k in range(len(i)):
-                if i[j].score < i[k].score:
-                    i[j], i[k] = i[k], i[j]
+        for i in group_rank:
+            for j in range(len(i)):
+                for k in range(len(i)):
+                    if i[j].score < i[k].score:
+                        i[j], i[k] = i[k], i[j]
 
-    for i in group_rank:
-        for j in i:
-            final_rank.append(j)
+        for i in group_rank:
+            for j in i:
+                final_rank.append(j)
 
-    for i in range(len(final_rank)):   
-        final_rank[i].rank = i+1
+        for i in range(len(final_rank)):   
+            final_rank[i].rank = i+1
 
-    return final_rank
+        return final_rank
 
 def get_id(model_class,length:int):
     count = 0
@@ -169,6 +172,10 @@ def topic_probelm_set(request, topic, num):
     next_page = num + 1
     prev_page = num - 1
     ranking = get_ranking()
+    total_page = len(get_problems(topic)) // 20
+    if len(get_problems(topic)) % 20 != 0:
+        total_page += 1
+
 
     cont = {
         'profile':profile,
@@ -180,7 +187,10 @@ def topic_probelm_set(request, topic, num):
         'solveds':solved_problems,
         'solveds_count':len(solved_problems),
         'all':all_problems,
-        'ranking':ranking
+        'ranking':ranking,
+        'total_page' : total_page,
+        'num' : num,
+        'problems_count' : len(problems) + len(solved_problems) ,
         }
 
     return render(request,"topic_problemset.html",cont)
@@ -692,3 +702,12 @@ def admin_panel_club_member_details(request, pk):
     cont = {'member':member}
 
     return render(request, 'admin_panel_club_member_details.html', cont)
+
+@only_admin_can_access
+def admin_panel_submissions(request):
+
+    submissions = reversed(list(models.ProblemTried.objects.all()))
+
+    cont = {'submissions':submissions}
+
+    return render(request, 'admin_panel_submissions.html', cont)

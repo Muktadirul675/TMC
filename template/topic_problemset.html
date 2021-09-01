@@ -20,7 +20,7 @@
             <div class="tab shadow">
                 <div onclick="tab(1)" class="px-3 py-2 px-sm-4 py-sm-3 allProb">All</div>
                 <div onclick="tab(2)" class="px-3 py-2 px-sm-4 py-sm-3 solvedProb">Solved ({{solveds_count}}) </div>
-                <div onclick="tab(3)" class="px-3 py-2 px-sm-4 py-sm-3 unsolvedProb">Unsolved ({{unsolveds_count}} of 20) </div>
+                <div onclick="tab(3)" class="px-3 py-2 px-sm-4 py-sm-3 unsolvedProb">Unsolved ({{unsolveds_count}} of {{problems_count}}) </div>
             </div>
 
             <!-- Problems will be displayed in the following problemContainer div -->
@@ -29,7 +29,9 @@
                 {% if not prev_page < 0 %}
                     <a href="{% url 'tmc:topic_problems' 'Math' prev_page %}" class="btn btn-primary prev m-1 shadow"><i class="fas fa-angle-double-left"></i>&nbsp; Prev</a>
                 {% endif %}
+                {% if num == total_page %}
                 <a href="{% url 'tmc:topic_problems' 'Math' next_page %}"  class="btn btn-primary next m-1 shadow">Next &nbsp;<i class="fas fa-angle-double-right"></i></a>
+                {% endif %}
             </div>
 
 

@@ -1,0 +1,30 @@
+{% extends "./admin_panel.html" %}
+
+{% block admin %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 p-3">
+                <h3>Submissions</h3>
+                <br>
+                <ul class="container-fluid">
+                    <div class="row">
+                        <div class="col-2"> <b>Submission ID</b> </div>
+                        <div class="col-2"> <b>Username</b> </div>
+                        <div class="col-4"><b>Problem</b></div>
+                        <div class="col-4"> <b>Time</b> </div>
+                    </div> <hr>
+                    {% for s in submissions %}
+                        <div class="row">
+                            <div class="col-2">#{{s.id}}</div>
+                            <div class="col-2">#{{s.user.username}}</div>
+                            <div class="col-4">{{s.problem.problem_name}}</div>
+                            <div class="col-4">{{s.time}}</div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock admin %}

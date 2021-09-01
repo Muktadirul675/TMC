@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/problems/edit_problems/<int:pk>/', views.edit_problem, name="edit_problem"),
     path('login_as_admin/',views.admin_login, name="admin_login"),
     path('admin_panel/club_members/<int:pk>/', views.admin_panel_club_member_details, name="admin_panel_club_member_details"),
+    path('admin_panel/submissions/', views.admin_panel_submissions, name="admin_panel_submissions"),
 ]
 
 
