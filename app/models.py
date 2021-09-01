@@ -73,7 +73,7 @@ class Profile(models.Model):
     contact_no = models.CharField(max_length=20,null=True, blank=True)
     time = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     update = models.DateTimeField(auto_now=True,null=True, blank=True)
-    point = models.IntegerField(null=True, blank=True)
+    point = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
