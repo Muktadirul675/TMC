@@ -16,7 +16,7 @@
                                     <a href="">{{i.first_name}} {{i.last_name}} [{{i.username}}]</a>
                                 </div>
                                 <div class="col-2">
-                                    <a class="delete" href="">Delete User</a>
+                                    <a class="delete" href="{% url 'tmc:delete_user' i.id %}">Delete User</a>
                                 </div>
                             </div>
                         </div>

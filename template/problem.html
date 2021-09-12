@@ -32,7 +32,9 @@
                     {{problem.problem|safe}}
                 </div>
                 <div class="quesTags mt-4">
-                    <span>Geometry</span><span>Basic</span>
+                    {% for t in problem.tags.all %}
+                        <span>{{t.name}}</span>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -71,7 +73,7 @@
                     <div class="submitInp">
                         <form action="" method="POST" autocomplete="off">
                             {% csrf_token %}
-                            <input type="number" step="0.01" name="answer" id="" placeholder="Your Answer" required>
+                            <input type="number" step="0.00001" name="answer" id="" placeholder="Your Answer" required>
                             <input type="submit" value="" id="ansSubmit" hidden>
                             <label for="ansSubmit"><i class="fas fa-paper-plane"></i>Submit</label>
                             <small>The answer must be in English numbers</small>
@@ -95,7 +97,7 @@
             <div class="row">
                 {% for p in more_problems %}
                     <div class="col-md-4 simQuesConBox">
-                        <a href="#">
+                        <a href="{% url 'tmc:problem' p.id %}">
                             <div class="simQuesBox border bg-white p-4 m-2 ms-md-0">{{p.problem_name}} - <small>Point: {{p.point}}</small>  </div>
                         </a>
                     </div>

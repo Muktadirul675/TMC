@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, resolve_url
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from . import models
 from . import forms
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 import random, time
 from .decorators import only_admin_can_access
 
@@ -203,7 +203,6 @@ def submission(request,status,problem,tried):
         'submission':tried,
     })
 
-
 def problem(request,pk):
     start_time  = time.time()
     problem = models.Problem.objects.get(pk=pk)
@@ -315,13 +314,27 @@ def edit_problem(request, pk):
 
     problem = models.Problem.objects.get(pk=pk)
     form = forms.Problem(instance=problem)
+    tags = []
+    for t in problem.tags.all():
+        tags.append(t.name)
 
-    cont = {'form':form}
+    all_tags = ", ".join(tags)
+
+    cont = {'form':form, 'tags':all_tags}
 
     if request.method == "POST":
         form = forms.Problem(request.POST, instance=problem)
+        for i in problem.tags.all():
+            i.delete()
         if form.is_valid():
             form.save()
+            given_tags = request.POST['tags']
+            given_tags_list = given_tags.split(',')
+            for i in given_tags_list:
+                new_tag = models.ProblemTag()
+                new_tag.name = i
+                new_tag.problem = problem
+                new_tag.save()
             return redirect("/admin_panel/problems/")
     return render(request, 'edit_problem.html', cont)
 
@@ -712,3 +725,12 @@ def admin_panel_submissions(request):
     cont = {'submissions':submissions}
 
     return render(request, 'admin_panel_submissions.html', cont)
+
+@only_admin_can_access
+def delete_user(request, pk):
+    user = User.objects.get(pk=pk)
+    user.delete()
+
+    return redirect("tmc:admin_panel_users")
+
+

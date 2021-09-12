@@ -10,6 +10,8 @@
                     {% csrf_token %}
                     {{form.media}}
                     {{form.as_p}}
+                    <label for="tags">Tags:</label>
+                    <input class="form-control" type="text" value="{{tags}}" name="tags" id=""> <br>
                     <input type="submit" value="Chnage" class="btn btn-secondary">
                 </form>
             </div>
