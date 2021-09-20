@@ -5,259 +5,741 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block body %}
-<div class="container">
-    <section class="container">
-        <!-- Heading -->
-        <div class="row my-1 header bg-white mb-4 rounded">
-            <div class="col-md-7 p-4 p-lg-5 headerTxt">
-                <div class="mainHeadTxt">
-                    <h1><span class="mainHead">TMC: </span>Trivuj Math Club</h1>
-                    <p class="">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias mollitia, iste explicabo
-                        eius corrupti repellat asperiores vero maiores fugiat debitis.</p>
-                </div>
-                {% if user.is_authenticated %}
-                <h5>Welcome, {{user.first_name}}</h5>
-                {% else %}
-                <div class="topBtns">
-                    <a href="{% url 'tmc:user_registration' %}"><button class="btn btn-primary px-4 me-3">Register</button></a>
-                    <a href="{% url 'tmc:user_login' %}"><button class="btn btn-outline-primary border-2 px-4">Log In</button></a>
+<section class="container-fluid">
 
-                    <!-- <button class="btn btn-outline-primary border-2 px-4">Log In</button> -->
-                </div>
-                {% endif %}
-            </div>
-            <div class="col-md-5 p-4 p-lg-5">
-                <div class="imgContain">
-                    <img src="{% static 'images/tmc_logo.jpg' %}" class="" alt="">
-                </div>
-            </div>
+    <!-- Heading -->
+    <div class="row topHead">
+        <div class="col-12 my-5">
+            <h1 class="topHeadline">TMC: Trivuj Math Club</h1>
+            <p class="topSubtext"><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, accusamus</i></p>
         </div>
+        <div class="col-12 topBtnBox mb-5">
+            <button class="btn topBtnLogin">Log In</button>
+            <a href="#"><button class="btn topBtnSignup">Register</button></a>
+        </div>
+    </div>
+
+</section>
 
 
-        <!-- 3 blocks -->
-        <div class="row mb-4 justify-content-md-between flex-column flex-md-row">
-            <style>
-
-            </style>
-            <div class="container-fluid bg-white shadow-sm p-4">
-                <div class="col-12">
-                    <h3>Problems To Solve</h3> <br>
-                    {% for p in problems %}
-                        <div class="row shadow-sm mb-2 p-2">
-                            <div class="col-8">
-                                <h5>{{p.problem_name}}</h5> 
-                            </div>
-                            <div class="col-4">
-                                <a class="btn btn-primary" href="{% url 'tmc:problem' p.id %}" >Solve</a>
-                            </div>
+<section class="container">
+    <!-- 3 blocks -->
+    <!-- <div class="row mb-4 justify-content-md-between flex-column flex-md-row bg-white mt-3">
+        <div class="col-md-2 p-0 blockContainer">
+            <div class="blockWrap bg-light">
+                <a href="#">
+                    <div class="blocks">
+                        <div class="blockIcon">
+                            <img src="images/tmc1.png" alt="">
                         </div>
-                    {% endfor %}
+                        <div class="blockTxt text-center">
+                            <h2>Practice</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-2 p-0 blockContainer">
+            <div class="blockWrap bg-light">
+                <a href="#">
+                    <div class="blocks">
+                        <div class="blockIcon">
+                            <img src="images/tmc1.png" alt="">
+                        </div>
+                        <div class="blockTxt text-center">
+                            <h2>Practice</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-2 p-0 blockContainer">
+            <div class="blockWrap bg-light">
+                <a href="#">
+                    <div class="blocks">
+                        <div class="blockIcon">
+                            <img src="images/tmc1.png" alt="">
+                        </div>
+                        <div class="blockTxt text-center">
+                            <h2>Practice</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row mt-4 blocks py-3 rounded mb-5 shadow text-center">
+        <div class="col-5 col-sm-3 p-0">
+            <div class="blockImg">
+                <img class="img-fluid" src="{% static 'images/tmc1.png' %}" alt="">
+            </div>
+            <h3>Practice</h3>
+        </div>
+        <div class="col-12 col-sm-1 blockArrowsCon p-0">
+            <img class="blockArrows img-fluid" src="{% static 'images/right-arrow.png' %}" alt="">
+        </div>
+        <div class="col-5 col-sm-3 p-0">
+            <div class="blockImg">
+                <img class="img-fluid" src="{% static 'images/tmc1.png' %}" alt="">
+            </div>
+            <h3>Solve Problems</h3>
+        </div>
+        <div class="col-12 col-sm-1 blockArrowsCon p-0">
+            <img class="blockArrows img-fluid" src="{% static 'images/right-arrow.png' %}" alt="">
+        </div>
+        <div class="col-5 col-sm-3 p-0">
+            <div class="blockImg">
+                <img class="img-fluid" src="{% static 'images/tmc1.png' %}" alt="">
+            </div>
+            <h3>Make Yourself Better</h3>
+        </div>
+    </div>
+
+</section>
+
+<section class="container probBlockCon">
+    <div class="row text-center justify-content-center mb-5">
+
+        <div class="col-12 mt-5 mb-3 probBlockHead">
+            <h2>Solve Problems !!!</h2>
+            <div class="underLine"></div>
+        </div>
+
+        <div class="col-10 col-md-6 col-lg-3 mb-3 mb-md-0">
+            <a href="#">
+                <div class="probBlock phyBlock border rounded">
+
+                    <div class="probBlockImg mt-4 mb-5">
+                        <img src="{%  static 'svg/physics.svg' %}" alt="">
+                    </div>
+
+                    <h3 class="my-5">Physics Problems</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-10 col-md-6 col-lg-3">
+            <a href="#">
+                <div class="probBlock mathBlock border rounded">
+
+                    <div class="probBlockImg mt-4 mb-5">
+                        <img src="{% static 'svg/math-2.svg' %}" alt="">
+                    </div>
+
+                    <h3 class="my-5">Math Problems</h3>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Profile -->
+<!-- <div class="row profile rounded mb-3">
+        <div class="col-3 proImgTxtCon">
+            <div class="proImgTxt bg-white rounded me-2 p-3">
+                <div class="profileImg">
+                    <img src="images/tmc1.png" alt="">
+                </div>
+                <div class="profileName">
+                    <a href="#">
+                        <h4>Profile Name</h4>
+                    </a>
                 </div>
             </div>
         </div>
-
-        <!-- Profile -->
-        <!-- <div class="row profile rounded mb-3">
-            <div class="col-3 proImgTxtCon">
-                <div class="proImgTxt bg-white rounded me-2 p-3">
-                    <div class="profileImg">
-                        <img src="images/tmc1.png" alt="">
+        <div class="col-9 bg-white rounded">
+            <div class="profileDetails">
+                <div class="sBlock m-4 border rounded rating">
+                    <div class="rankNum">
+                        <h4>203</h4>
+                        <p>Currnt Rating</p>
                     </div>
-                    <div class="profileName">
+                    <div class="rank">
+                        <p>Rating 10</p>
+                    </div>
+                </div>
+                <div class="sBlock m-4 border rounded solved">
+                    <div class="rankNum">
+                        <h4>309</h4>
+                        <p>Solved Problems</p>
+                    </div>
+                    <div class="rank">
+                        <p>Rating 10</p>
+                    </div>
+                </div>
+                <div class="sBlock m-4 border rounded contribution">
+                    <div class="rankNum">
+                        <h4>90</h4>
+                        <p>Contribution</p>
+                    </div>
+                    <div class="rank">
+                        <p>Rating 10</p>
+                    </div>
+                </div>
+                <div class="blog border rounded m-4">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>Blogs</td>
+                            <td>20</td>
+                        </tr>
+                    </table>
+                    <div class="blogBtn">
+                        <button class="btn btn-primary">View Blogs<i class="fas fa-external-link-alt"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+
+<!-- Blog -->
+<!-- <div class="row bg-white rounded p-4 pb-0 mb-3 blog">
+        <div class="col-12">
+            <h3 class="mb-3 border-bottom py-2 border-3">Latest Blogs</h3>
+
+            <div class="row">
+
+                <div class="owl-carousel col-12">
+                    <div class="blogCard p-0 rounded mb-3">
                         <a href="#">
-                            <h4>Profile Name</h4>
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-9 bg-white rounded">
-                <div class="profileDetails">
-                    <div class="sBlock m-4 border rounded rating">
-                        <div class="rankNum">
-                            <h4>203</h4>
-                            <p>Currnt Rating</p>
-                        </div>
-                        <div class="rank">
-                            <p>Rating 10</p>
-                        </div>
-                    </div>
-                    <div class="sBlock m-4 border rounded solved">
-                        <div class="rankNum">
-                            <h4>309</h4>
-                            <p>Solved Problems</p>
-                        </div>
-                        <div class="rank">
-                            <p>Rating 10</p>
-                        </div>
-                    </div>
-                    <div class="sBlock m-4 border rounded contribution">
-                        <div class="rankNum">
-                            <h4>90</h4>
-                            <p>Contribution</p>
-                        </div>
-                        <div class="rank">
-                            <p>Rating 10</p>
-                        </div>
-                    </div>
-                    <div class="blog border rounded m-4">
-                        <table class="table table-borderless">
-                            <tr>
-                                <td>Blogs</td>
-                                <td>20</td>
-                            </tr>
-                        </table>
-                        <div class="blogBtn">
-                            <button class="btn btn-primary">View Blogs<i class="fas fa-external-link-alt"></i></button>
-                        </div>
-                    </div>
 
-                </div>
             </div>
-        </div> -->
 
-        <!-- Blog -->
-        <!-- <div class="row bg-white rounded p-4 pb-0 mb-3 blog">
-            <div class="col-12">
-                <h3 class="mb-3 border-bottom py-2 border-3">Latest Blogs</h3>
-                <div class="row">
-                    <div class="owl-carousel col-12">
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="blogCard p-0 rounded mb-3">
-                            <a href="#">
-                                <div class="blogImg">
-                                    <img class="img-fluid" src="images/blog.jpg" alt="">
-                                </div>
-                                <div class="blogTxt p-3">
-                                    <h3>Blog Title <small>By <br> <span class="blogWritter">Rafsan Hasan</span></small></h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
-                                        minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
-                                </div>
-                            </a>
-                        </div>
+        </div>
+    </div> -->
+
+<!-- Contest -->
+<!-- <div class="row my-3">
+        <div class="col-12 p-0 rounded bg-white">
+            <div class="row">
+                <div class="col-5 contestImg img-fluid"><img src="images/pp.jpg" alt="" class="rounded"></div>
+                <div class="col-7 contestTxt">
+                    <h4>Contest Name</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptatum incidunt magni harum dolore eos mollitia accusantium eaque fugit minima optio facere iusto animi quod, veniam molestiae placeat quas officia?</p>
+                    <div class="regBtn">
+                        <button class="btn btn-outline-primary">Register Now!!!</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
+    </div> -->
 
-        <!-- Contest -->
-        <!-- <div class="row my-3">
-            <div class="col-12 p-0 rounded bg-white">
-                <div class="row">
-                    <div class="col-5 contestImg img-fluid"><img src="images/pp.jpg" alt="" class="rounded"></div>
-                    <div class="col-7 contestTxt">
-                        <h4>Contest Name</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptatum incidunt magni harum dolore eos mollitia accusantium eaque fugit minima optio facere iusto animi quod, veniam molestiae placeat quas officia?</p>
-                        <div class="regBtn">
-                            <button class="btn btn-outline-primary">Register Now!!!</button>
-                        </div>
+<!-- <section class="container-fluid blogCon">
+    <div class="row p-4 pb-0 blog">
+        <div class="col-12">
+            <h2 class="mt-1 pt-1 text-center">Latest Blogs</h2>
+            <div class="underLine mb-4"></div>
+
+            <div class="row">
+
+                <div class="owl-carousel col-12">
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="blogCard p-0 rounded mb-3">
+                        <a href="#">
+                            <div class="blogImg">
+                                <img class="img-fluid" src="images/blog.jpg" alt="">
+                            </div>
+                            <div class="blogTxt p-3">
+                                <h3>Blog Title <small>By <span class="blogWritter">Rafsan Hasan</span></small></h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique,
+                                    minima repellat repudiandae ullam eveniet a ea sit iste soluta!</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
+
+            </div>
+
+        </div>
+    </div>
+</section> -->
+
+<section class="container-fluid recentProbsSec">
+    <div class="row justify-content-center pb-5">
+        <div class="col-12 mt-3 mb-2 probBlockHead text-center">
+            <h2>Recent Problems</h2>
+            <div class="underLine"></div>
+        </div>
+        <div class="recentProbsBtnCon mt-4 mb-0">
+            <div class="tabSelected" id="recPhy" onclick="tab('phy')">
+                <h4 onclick="tab('phy')">Physics</h4>
+            </div>
+            <div class="" id="recMath" onclick="tab('math')">
+                <h4 onclick="tab('math')">Math</h4>
+            </div>
+        </div>
+        <!-- Problems will be displayed in the following problemContainer div -->
+        <div class="problemContainer bg-white shadow col-12 col-sm-11 col-md-10" id="problemContainer">
+            <!-- <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div>
+
+            <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div>
+
+            <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div>
+
+            <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div>
+
+            <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div>
+
+            <div class="problem">
+                <a href="#" class="probNameTag">
+                    <h4>Problem Name</h4>
+                    <div class="tags">
+                        <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                    </div>
+                </a>
+                <div class="solveBtn">
+                    <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Physics Problems Here -->
+    <div id="phyProbs" hidden>
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <!-- <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
             </div>
         </div> -->
 
-    </section>
-</div>
+    </div>
+
+    <!-- Math Problems Here -->
+    <div id="mathProbs" hidden>
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <!-- <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium-hard">Medium-hard</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 hard">Hard</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 easy">Easy</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div>
+
+        <div class="problem">
+            <a href="#" class="probNameTag">
+                <h4>Problem Name</h4>
+                <div class="tags">
+                    <span class="tag1">ABCD-123</span><span class="tag2 medium">Medium</span>
+                </div>
+            </a>
+            <div class="solveBtn">
+                <a href="#"><button class="btn btn-outline-primary">Solve</button></a>
+            </div>
+        </div> -->
+
+    </div>
+</section>
+
+<section class="container-fluid leaderBoardSec">
+    <div class="row justify-content-center pb-5">
+        <div class="col-12 mt-3 mb-2 probBlockHead text-center">
+            <h2>Top Scorers</h2>
+            <div class="underLine"></div>
+        </div>
+
+        <div class="col-12 col-sm-11 col-md-10 leaderBoard mt-3 p-0 shadow rounded bg-light">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Score</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="top_1">
+                        <td>1</td>
+                        <td>
+                            <p>
+                                <a href="#" class="idLink">Rafsan Hasan</a>
+                                <span><img class="leaderCrown img-fluid ms-3" src="images/crown.svg" alt=""></span>
+                            </p>
+                        </td>
+                        <td>230</td>
+                    </tr>
+
+                    <tr class="top_2">
+                        <td>2</td>
+                        <td>
+                            <p><a href="#" class="idLink">Rafsan Hasan</a></p>
+                        </td>
+                        <td>230</td>
+                    </tr>
+
+                    <tr class="border-0 top_3">
+                        <td>3</td>
+                        <td>
+                            <p><a href="#" class="idLink">Rafsan Hasan</a></p>
+                        </td>
+                        <td>230</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
 {% endblock %}
 
 {% block js %}
 <script>
     $(".owl-carousel").owlCarousel({
         items: 4,
-        margin:15,
+        margin: 15,
         nav: true,
         // loop:true,
         // autoplay:true,
-        autoplayTimeout:1500,
-        autoplayHoverPause:true,
-        responsive:{
-            0:{
-                items:1,
+        autoplayTimeout: 1500,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1,
             },
-            580:{
-                items:2,
+            580: {
+                items: 2,
             },
-            780:{
-                items:3,
+            780: {
+                items: 3,
             },
-            1000:{
-                items:3,
+            1000: {
+                items: 3,
             },
-            1200:{
-                items:4
+            1200: {
+                items: 4
             }
         }
     });
 
     // code for side nav bar
 
-    $(".sideTrgr").click(function(){
+    $(".sideTrgr").click(function () {
         $(".sideNabBar").toggleClass("sideInactive");
     })
 
-    $(".sideSubMenuHead").click(function(){
+    $(".sideSubMenuHead").click(function () {
         $(".sideSubMenu").slideToggle(300);
         $("#sideDownArrow").toggleClass("rotate");
-    })    
+    })
+
+    $("#problemContainer").html($("#phyProbs").html());
+
+
+    function tab(p) {
+        if (p == 'phy') {
+
+            $("#problemContainer").html($("#phyProbs").html());
+            $("#recPhy").addClass("tabSelected");
+            $("#recMath").removeClass("tabSelected");
+
+        } else if (p == 'math') {
+
+            $("#problemContainer").html($("#mathProbs").html());
+            $("#recPhy").removeClass("tabSelected");
+            $("#recMath").addClass("tabSelected");
+
+        }
+    }
+
 </script>
 
 {% endblock %}
-
