@@ -83,7 +83,7 @@ body {
 .topHead {
     color: whitesmoke;
     text-align: center;
-    background: linear-gradient(#000000ba, #000000ba), url(../videos/back.gif);
+    background: linear-gradient(#000000ba, #000000ba), url(/static/videos/back.gif);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
